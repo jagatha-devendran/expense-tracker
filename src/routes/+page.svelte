@@ -1,61 +1,116 @@
 <script lang="ts">
-  
-  import { collection, FieldValue, getDocs, getFirestore, Timestamp } from "firebase/firestore";
-  import {app} from "../configs/FirebaseConfig"
-  import {Expenses} from "../model/Expenses"
-  import { doc, setDoc, updateDoc, arrayUnion } from "firebase/firestore"; 
-  // import { arrayUnion } from "firebase/firestore/lite";
+  import { getTodayExpense } from "$lib/services/expenses";
+  import { onMount } from "svelte";
+  import type { Expense } from "$lib/models/Expense";
+  import BalanceCard from "$lib/components/BalanceCard.svelte";
+  import MonthlyBudgetCard from "$lib/components/MonthlyBudgetCard.svelte";
+  import SavingCard from "$lib/components/SavingCard.svelte";
+  import RecentExpenseCard from "$lib/components/RecentExpenseCard.svelte";
+  import petrol_bunk from "$lib/assets/petrol_bunk.png";
 
-  const db = getFirestore(app);
+  let expenseList: Expense[] = $state([]);
 
-  let expenseList: Array<Expenses> = $state([]);
-
-
-  async function readDb(){
-	
-	const querySnapshot = await getDocs(collection(db, "expenses"));
-  	querySnapshot.forEach((doc) => {
-      for (let i = 0; i < doc.data().expense.length; i++) {  
-        console.log(doc.data().expense[i])
-      }
-      doc.data().expense.forEach((expense: Expenses) => {
-        let expenseItem = new Expenses(expense.icon, expense.name, expense.price)
-        expenseList.push(expenseItem);
-        console.log(expenseItem.name);
-      });      
-      console.log(expenseList);
-      });    
-  }
-  
-  async function addData(expense: Expenses){
-    // let { expense }: Props = $props();
-    const ref = doc(db, "expenses", "eg")  
-    await setDoc(ref, {expense:   arrayUnion({icon: expense.icon, name: expense.name, price: expense.price})})
-    .then(() => {
-      console.log("Data added successfully")
-    })
-    .catch(error => {
-      console.log(error)
-    });
-  }
-
-
+  onMount(async () => {
+    expenseList = await getTodayExpense();
+  });
 </script>
 
-<button onclick={readDb}>get Data</button> 
- <h1>{expenseList[0]}</h1> 
-{#each expenseList as expense }
-  <div class="img"> 
-    <img src={expense.icon} alt="no_img">
-  </div>  
-  <tr>
-  <td><img src={expense.icon} alt="no_img"> </td> 
-  <td>{expense.name}</td>
-  <td>{expense.price}</td>
-  <!-- <td>{country.code}</td>  -->
-  </tr>
-  {/each}
+<BalanceCard />
 
-<button onclick={() => addData(new Expenses("jk", "jkhd", 10))}>set Data</button>
+<div class="section-spacer"></div>
 
+<div class="stats-grid">
+  <MonthlyBudgetCard />
+  <SavingCard />
+</div>
 
+<div class="section-spacer"></div>
+
+<div class="section-header">
+  <h2 class="section-title">Today's Expenses</h2>
+  <a href="/history" class="see-all-link">See All</a>
+</div>
+
+{#if expenseList.length > 0}
+  <div class="expense-list">
+    {#each expenseList as expense}
+      <RecentExpenseCard
+        icon={petrol_bunk} 
+        spent_for={expense.name}
+        day_date="Today"
+        place={expense.description || "No description"}
+        amt_spent={expense.price}
+        category={expense.category || "OTHER"}
+      />
+    {/each}
+  </div>
+{:else}
+  <div class="empty-state">
+    <p>No expenses recorded for today.</p>
+    <a href="/addExpense" class="add-btn">Add Your First Expense</a>
+  </div>
+{/if}
+
+<style>
+  .section-spacer {
+    height: 32px;
+  }
+
+  .stats-grid {
+    display: flex;
+    gap: 20px;
+  }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-size: 20px;
+    font-weight: 800;
+    color: #181C20;
+    margin: 0;
+  }
+
+  .see-all-link {
+    color: #6349c0;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .empty-state {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 16px;
+    text-align: center;
+    color: #797584;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+  }
+
+  .add-btn {
+    display: inline-block;
+    margin-top: 12px;
+    color: #6349c0;
+    font-weight: 700;
+    text-decoration: none;
+    border: 2px solid #6349c0;
+    padding: 8px 16px;
+    border-radius: 9999px;
+    transition: all 0.2s;
+  }
+
+  .add-btn:hover {
+    background-color: #6349c0;
+    color: #fff;
+  }
+
+  @media (max-width: 768px) {
+    .stats-grid {
+      flex-direction: column;
+    }
+  }
+</style>

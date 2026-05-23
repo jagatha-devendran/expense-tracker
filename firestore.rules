@@ -1,0 +1,12 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /expenses/{date} {
+      // Allow read and write access to the expenses collection.
+      // This is necessary for the history page to list all expense documents.
+      // Note: In a production environment, you should restrict access to authenticated users.
+      allow read, write: if true;
+    }
+  }
+}
