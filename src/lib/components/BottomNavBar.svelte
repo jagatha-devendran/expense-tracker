@@ -7,7 +7,7 @@
 
 <nav class="bottom-nav-bar">
   <a href="/" class="nav-item" class:active={$page.url.pathname === '/'}>
-    <img src={dashboard_icon_clicked} alt="Dashboard" />
+    <img src={dashboard_icon_clicked} class="icon" alt="Dashboard" />
     <span>DASHBOARD</span>
   </a>
   

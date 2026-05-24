@@ -1,32 +1,58 @@
-# ExpenseTracker - Svelte 5 + Firebase
+# 💰 ExpenseTracker
 
-A sleek, modern expense tracking application built with **Svelte 5**, **SvelteKit**, and **Firebase Firestore**. This app helps you manage your daily spending with ease, providing a clean dashboard and a detailed history of your transactions.
+A sleek, modern expense tracking application built with **Svelte 5**, **SvelteKit**, and **Firebase Firestore**. Manage your daily spending with a clean, intuitive interface designed for both speed and clarity.
 
-## 🚀 Features
+## ✨ Features
 
-- **Dashboard:** Overview of your total balance and today's spending.
-- **Add Expense:** Quickly log new expenses with categories and descriptions.
-- **History:** View all your past transactions grouped by date, sorted from newest to oldest.
-- **Responsive Design:** Optimized for both mobile and desktop viewing.
-- **Real-time Data:** Powered by Firebase Firestore for seamless data management.
+- **📊 Dynamic Dashboard:** Get an immediate overview of your total balance and current day's expenses.
+- **➕ Quick Logging:** Add new expenses in seconds with categorized entries and descriptions.
+- **📅 Transaction History:** A detailed, date-grouped log of all your past spending.
+- **📱 Responsive UI:** Optimized experience for mobile and desktop using modern Vanilla CSS.
+- **🔥 Real-time Backend:** Powered by Firebase Firestore for seamless data persistence and synchronization.
+
+## 🖼️ Screenshots
+
+### Dashboard
+![Dashboard](src/lib/assets/screenshot-dashboard.png)
+
+<br/>
+
+### Add New Expense
+![Add Expense](src/lib/assets/screenshot-add-expense.png)
+
+<br/>
+
+### Transaction History
+![History](src/lib/assets/screenshot-history.png)
+
+<br/>
 
 ## 🛠️ Tech Stack
 
-- **Framework:** [Svelte 5](https://svelte.dev/) (using the latest Runes API)
+- **Framework:** [Svelte 5](https://svelte.dev/) (Runes API)
 - **Meta-framework:** [SvelteKit](https://kit.svelte.dev/)
 - **Backend:** [Firebase Firestore](https://firebase.google.com/products/firestore)
-- **Styling:** Vanilla CSS (Modern and clean UI)
+- **Styling:** Vanilla CSS (Modern UI/UX)
 - **Language:** TypeScript
 
-## ⚙️ Setup Instructions
+## 🚀 Getting Started
+
+Follow these steps to set up the project locally.
 
 ### 1. Prerequisites
-- Node.js installed on your machine.
-- A Firebase project created in the [Firebase Console](https://console.firebase.google.com/).
+- [Node.js](https://nodejs.org/) (Latest LTS recommended)
+- A Firebase project from the [Firebase Console](https://console.firebase.google.com/)
 
-### 2. Environment Variables
-Create a `.env` file in the root directory and add your Firebase configuration:
+### 2. Installation
+Clone the repository and install the dependencies:
+```bash
+git clone https://github.com/your-username/ExpenseTracker.git
+cd ExpenseTracker
+npm install
+```
 
+### 3. Environment Setup
+Create a `.env` file in the root directory and populate it with your Firebase configuration:
 ```env
 PUBLIC_FIREBASE_API_KEY=your_api_key
 PUBLIC_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
@@ -36,9 +62,8 @@ PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
 PUBLIC_FIREBASE_APP_ID=your_app_id
 ```
 
-### 3. Firestore Security Rules
-To ensure the application can read and write data, you need to apply the following rules in your Firebase Console (or deploy using `firestore.rules` file):
-
+### 4. Firestore Rules
+Configure your Firestore security rules to allow access:
 ```rules
 rules_version = '2';
 service cloud.firestore {
@@ -50,21 +75,12 @@ service cloud.firestore {
 }
 ```
 
-### 4. Installation & Running
+### 5. Running the App
+Start the development server:
 ```bash
-# Install dependencies
-npm install
-
-# Start development server
 npm run dev
 ```
-
-## 📂 Project Structure
-
-- `src/lib/components`: Reusable Svelte components (BalanceCard, TopBar, etc.)
-- `src/lib/services`: Firebase service logic for handling data.
-- `src/lib/configs`: Firebase initialization and configuration.
-- `src/routes`: SvelteKit pages and layouts.
+Open [http://localhost:5173](http://localhost:5173) in your browser to see the app.
 
 ## 📄 License
-MIT
+This project is licensed under the [MIT License](LICENSE).
