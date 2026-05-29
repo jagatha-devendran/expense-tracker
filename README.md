@@ -46,7 +46,7 @@ Follow these steps to set up the project locally.
 ### 2. Installation
 Clone the repository and install the dependencies:
 ```bash
-git clone https://github.com/your-username/ExpenseTracker.git
+git clone https://github.com/jagatha-devendran/ExpenseTracker.git
 cd ExpenseTracker
 npm install
 ```
