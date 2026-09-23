@@ -1,19 +1,30 @@
 <script lang="ts">
-  import { getTodayExpense } from "$lib/services/expenses";
   import { onMount } from "svelte";
-  import type { Expense } from "$lib/models/Expense";
   import BalanceCard from "$lib/components/BalanceCard.svelte";
   import MonthlyBudgetCard from "$lib/components/MonthlyBudgetCard.svelte";
   import SavingCard from "$lib/components/SavingCard.svelte";
   import RecentExpenseCard from "$lib/components/RecentExpenseCard.svelte";
   import petrol_bunk from "$lib/assets/petrol_bunk.png";
-
-  let expenseList: Expense[] = $state([]);
+  import { apiData, expenses } from "$lib/store";
+  import TopBar from "$lib/components/TopBar.svelte";
 
   onMount(async () => {
-    expenseList = await getTodayExpense();
+    fetch("http://localhost:8080/home", {
+      credentials: "include"
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        apiData.set(data);        
+      }).catch(error => {
+        console.log(error);
+        return [];
+      });
   });
+
 </script>
+
+<TopBar />
 
 <BalanceCard />
 
@@ -31,9 +42,9 @@
   <a href="/history" class="see-all-link">See All</a>
 </div>
 
-{#if expenseList.length > 0}
+{#if $expenses.length > 0}
   <div class="expense-list">
-    {#each expenseList as expense}
+    {#each $expenses as expense}
       <RecentExpenseCard
         icon={petrol_bunk} 
         spent_for={expense.name}
@@ -114,3 +125,4 @@
     }
   }
 </style>
+

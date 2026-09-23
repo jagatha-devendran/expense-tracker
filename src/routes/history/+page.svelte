@@ -1,15 +1,36 @@
 <script lang="ts">
-  import { getAllExpense } from "$lib/services/expenses";
   import { onMount } from 'svelte';
-  import type { Expense } from "$lib/models/Expense";
-
-  let getAllExpenseMap = $state(new Map<string, Expense[]>());
+  import { goto } from '$app/navigation';
+  import { apiData, expenses } from '$lib/store';
 
   onMount(async () => {
-    getAllExpenseMap = await getAllExpense();		        
-  });
+    try {
+      const response = await fetch('http://localhost:8080/history', {
+        method: 'GET',
+        credentials: 'include', // Sends the jwt_token cookie
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
 
-  function formatPrice(price: any) {
+      if (response.status === 401) {
+        console.warn('Unauthorized access. Redirecting to login...');
+        goto('/login');
+        return;
+      }
+
+      const data = await response.json();
+      if (response.ok) {
+        apiData.set(data);
+      } else {
+        console.error('Failed to fetch history:', data);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  });
+  
+function formatPrice(price: any) {
     const num = typeof price === 'number' ? price : parseFloat(price);
     return isNaN(num) ? '0.00' : num.toFixed(2);
   }
@@ -21,22 +42,23 @@
 </h4>
 
 <div class="history-list">
-    {#each Array.from(getAllExpenseMap.entries()) as [date, expenses]}
-        <h5 class="date-header">{date}</h5>
-        {#each expenses as item}
+    {#each $expenses as expense, i}
+        {#if (i == 0) || ($expenses[i-1].date != expense.date)}
+        <h5 class="date-header">{expense.date}</h5>
+        {/if }
             <div class="expense-card">
                 <div class="expense-info">            
-                    <h3>{item.name}</h3>
-                    {#if item.description}
-                        <p>{item.description}</p>
+                    <h3>{expense.name}</h3>
+                    {#if expense.description}
+                        <p>{expense.description}</p>
                     {/if}
                 </div>
                 <div class="expense-amount">
-                    <h4>-${formatPrice(item.price)}</h4>
+                    <h4>-${formatPrice(expense.price)}</h4>
                 </div>
             </div>
+
         {/each}
-    {/each}
 </div>
 
 <style>

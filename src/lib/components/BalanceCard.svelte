@@ -25,6 +25,7 @@
 </div>
 
 <style>
+
     .container {
         background-color: #6349C0;
         border-radius: 12px;
