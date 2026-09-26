@@ -11,7 +11,7 @@
       <span>DASHBOARD</span>
     </a>
     
-    <a href="/addExpense" class="nav-item" class:active={$page.url.pathname === '/addExpense'}>
+    <a href="/add-expense" class="nav-item" class:active={$page.url.pathname === '/add-expense'}>
       <img src={add_icon} class="icon" alt="Add Expense" />
       <span>NEW EXPENSE</span>
     </a>

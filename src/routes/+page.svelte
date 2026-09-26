@@ -1,9 +1,9 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import BalanceCard from "$lib/components/BalanceCard.svelte";
-  import MonthlyBudgetCard from "$lib/components/MonthlyBudgetCard.svelte";
-  import SavingCard from "$lib/components/SavingCard.svelte";
-  import RecentExpenseCard from "$lib/components/RecentExpenseCard.svelte";
+  import BalanceCard from "$lib/components/cards/BalanceCard.svelte";
+  import MonthlyBudgetCard from "$lib/components/cards/MonthlyBudgetCard.svelte";
+  import SavingCard from "$lib/components/cards/SavingCard.svelte";
+  import RecentExpenseCard from "$lib/components/cards/RecentExpenseCard.svelte";
   import petrol_bunk from "$lib/assets/petrol_bunk.png";
   import { expenses } from "$lib/store";
   import { getDetails, home } from "$lib/utils/server";
@@ -59,7 +59,7 @@
 {:else}
   <div class="empty-state">
     <p>No expenses recorded for today.</p>
-    <a href="/addExpense" class="add-btn">Add Your First Expense</a>
+    <a href="/add-expense" class="add-btn">Add Your First Expense</a>
   </div>
 {/if}
 </main>

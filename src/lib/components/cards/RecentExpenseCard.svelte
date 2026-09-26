@@ -31,7 +31,7 @@
         </div>
     </div>
     <div class="right-section">
-        <div class="amount">-${typeof amt_spent === 'number' ? amt_spent.toFixed(2) : amt_spent}</div>
+        <div class="amount">-₹{typeof amt_spent === 'number' ? amt_spent.toFixed(2) : amt_spent}</div>
         <div class="category">{category}</div>
     </div>
 </div>

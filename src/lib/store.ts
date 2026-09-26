@@ -1,17 +1,8 @@
 import { derived, writable } from "svelte/store";
-import type { Expense } from "./models/Expense";
-
+import type { Expense } from "./types/expense";
 
 export const apiData = writable<Expense[]>([]);
 
-export const expenses = derived(apiData, ($apiData) => {
+export const expenses = derived(apiData, ($apiData) => $apiData || []);
 
-    let expenseList: Expense[]  = [];
-
-    $apiData.forEach(expense => {
-      expenseList.push(expense);
-    });
-
-    return expenseList;
-});
 

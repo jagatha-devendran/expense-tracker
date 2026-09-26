@@ -1,44 +1,54 @@
 <script lang="ts">
   import { addData } from "$lib/utils/server";
   
+  const CATEGORIES = [
+    { name: 'Grocery', label: 'Grocery', icon: 'shopping_cart' },
+    { name: 'Restaurant', label: 'Restaurant', icon: 'restaurant' },
+    { name: 'Petrol', label: 'Petrol', icon: 'local_gas_station' },
+    { name: 'Health', label: 'Health', icon: 'medical_services' },
+    { name: 'Iyarkai Foods', label: 'Iyarkai', icon: 'eco' },
+    { name: 'Bus Travel', label: 'Bus Travel', icon: 'directions_bus' },
+    { name: 'Gifts', label: 'Gifts', icon: 'featured_seasonal_and_gifts' },
+    { name: 'Dress Purchase', label: 'Dress', icon: 'apparel' },
+    { name: 'Other', label: 'Other', icon: 'more_horiz' }
+  ];
+
   const valueDefaults = {
-        name: '',
-        price: <number | ''>(''),
-        description: '',
-        category:'',
-        date : new Date().toISOString().split('T')[0]
-    };
+    name: '',
+    price: '' as number | '',
+    description: '',
+    category: '',
+    date: new Date().toISOString().split('T')[0]
+  };
+
   let values = $state({ ...valueDefaults });
   let showSuccess = $state(false);
-
-  let box:any;
+  let box: HTMLElement | undefined;
 	
-    function onAddClick(){
-      addData(values);
-      values = { ...valueDefaults };
-      scrollToTop();
-      showSuccess = true;
-      setTimeout(() => {                                                                                                                                                      
-          showSuccess = false;                                                                                                                                                  
-        }, 3000);  
-    }
-
-	function scrollToTop() {
-		box.scrollIntoView();
-	}
-
-  function selectCategory(category_name: string) {
-    values.category = category_name;
-    console.log("Selected category:", values.category);
+  async function onAddClick() {
+    await addData(values);
+    values = { ...valueDefaults };
+    scrollToTop();
+    showSuccess = true;
+    setTimeout(() => {                                                                                                                                                      
+      showSuccess = false;                                                                                                                                                  
+    }, 3000);  
   }
 
-  
+  function scrollToTop() {
+    box?.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function selectCategory(categoryName: string) {
+    values.category = categoryName;
+  }
 </script>
+
 <main bind:this={box}>
 <h1 class="font">Add New</h1>
 <h4 class="font head-description">Track your spending quickly and easily.</h4>
 
-<!-- 1. Title Field (Equal size, separate card with clear gap) -->
+<!-- 1. Title Field -->
 <div class="field-card">
   <h5 class="field-label">TITLE</h5>
   <input 
@@ -49,11 +59,11 @@
   />
 </div>
 
-<!-- 2. Amount Field (Equal size, separate card with clear gap) -->
+<!-- 2. Amount Field -->
 <div class="field-card">
   <h5 class="field-label">AMOUNT</h5>
   <div class="align">
-    <span class="rs-symbol">$</span>
+    <span class="rs-symbol">₹</span>
     <input 
       type="number" 
       bind:value={values.price} 
@@ -67,52 +77,16 @@
 <div class="card">
   <h5 class="category">CATEGORY</h5>
   <div class="category-grid">
-      <button onclick={() => selectCategory("Grocery")} class={values.category === "Grocery" ? 'selected' : 'category-item'}>
-        <div class="align-category">
-          <span class="material-symbols-outlined">shopping_cart</span>
-          <p>Grocery</p>
-        </div>
+    {#each CATEGORIES as cat}
+      <button 
+        type="button"
+        onclick={() => selectCategory(cat.name)} 
+        class={values.category === cat.name ? 'selected' : 'category-item'}
+      >
+        <span class="material-symbols-outlined">{cat.icon}</span>
+        <p>{cat.label}</p>
       </button>
-  
-      <button onclick={() => selectCategory("Restaurant")} class={values.category === "Restaurant" ? 'selected' : 'category-item'}>
-        <span class="material-symbols-outlined">restaurant</span>
-        <p>Restaurant</p>
-      </button>
-  
-      <button onclick={() => selectCategory("Petrol")} class={values.category === "Petrol" ? 'selected' : 'category-item'}>
-        <span class="material-symbols-outlined">local_gas_station</span>
-        <p>Petrol</p>
-      </button>
-  
-      <button onclick={() => selectCategory("Health")} class={values.category === "Health" ? 'selected' : 'category-item'}>
-        <span class="material-symbols-outlined">medical_services</span>
-        <p>Health</p>
-      </button>
-  
-      <button onclick={() => selectCategory("Iyarkai Foods")} class={values.category === "Iyarkai Foods" ? 'selected' : 'category-item'}>
-        <span class="material-symbols-outlined">eco</span>
-        <p>Iyarkai</p>
-      </button>
-  
-      <button onclick={() => selectCategory("Bus Travel")} class={values.category === "Bus Travel" ? 'selected' : 'category-item'}>
-        <span class="material-symbols-outlined">directions_bus</span>
-        <p>Bus Travel</p>
-      </button>
-  
-      <button onclick={() => selectCategory("Gifts")} class={values.category === "Gifts" ? 'selected' : 'category-item'}>
-        <span class="material-symbols-outlined">featured_seasonal_and_gifts</span>
-        <p>Gifts</p>
-      </button>
-      
-      <button onclick={() => selectCategory("Dress Purchase")} class={values.category === "Dress Purchase" ? 'selected' : 'category-item'}>
-        <span class="material-symbols-outlined">apparel</span>
-        <p>Dress</p>
-      </button>
-  
-      <button onclick={() => selectCategory("Other")} class={values.category === "Other" ? 'selected' : 'category-item'}>
-        <span class="material-symbols-outlined">more_horiz</span>
-        <p>Other</p>
-      </button>
+    {/each}
   </div>
 </div>
 

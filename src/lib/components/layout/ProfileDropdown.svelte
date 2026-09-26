@@ -1,32 +1,25 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
-  import { handleLogout } from "../utils/server";
+  import { handleLogout } from "$lib/utils/server";
   import { onMount } from "svelte";
 
+  let email = $state(typeof window !== "undefined" ? (localStorage.getItem("email") || "") : "");
 
-    let email = $state(typeof window !== "undefined" ? (localStorage.getItem("email") || "") : "");
+  onMount(() => {
+    email = localStorage.getItem("email") || "";
+  });
 
+  interface Props {
+    name?: string;
+    onLogout?: () => void;
+    onSettings?: () => void;
+  }
 
-    onMount(() => {
-        email = localStorage.getItem("email") || "";
-    });
-
-    interface Props {
-        name?: string;
-        
-        onLogout?: () => void;
-        // onProfile?: () => void;
-        // onChangePassword?: () => void;
-        onSettings?: () => void;
-    }
-
-    let {
-        name = "User",
-        onLogout = () => handleLogout(),
-        // onProfile = () => {},
-        // onChangePassword = () => {},
-        onSettings = () => {goto("/settings")}
-    }: Props = $props();
+  let {
+    name = "User",
+    onLogout = () => handleLogout(),
+    onSettings = () => { goto("/settings"); }
+  }: Props = $props();
 </script>
 
 <div class="profile-dropdown">
@@ -42,16 +35,6 @@
     </div>
 
     <div class="divider"></div>
-
-    <!-- <button class="menu-item" >
-        <span class="material-symbols-outlined">person</span>
-        <span>View Profile</span>
-    </button> -->
-
-    <!-- <button class="menu-item" >
-        <span class="material-symbols-outlined">lock</span>
-        <span>Change Password</span>
-    </button> -->
 
     <button class="menu-item" onclick={onSettings}>
         <span class="material-symbols-outlined">settings</span>
