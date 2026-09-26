@@ -1,17 +1,14 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import BalanceCard from "$lib/components/cards/BalanceCard.svelte";
-  import MonthlyBudgetCard from "$lib/components/cards/MonthlyBudgetCard.svelte";
-  import SavingCard from "$lib/components/cards/SavingCard.svelte";
-  import RecentExpenseCard from "$lib/components/cards/RecentExpenseCard.svelte";
+  import { BalanceCard, MonthlyBudgetCard, SavingCard, RecentExpenseCard } from "$lib/components";
   import petrol_bunk from "$lib/assets/petrol_bunk.png";
   import { expenses } from "$lib/store";
-  import { getDetails, home } from "$lib/utils/server";
+  import { getDetails, getHomeData } from "$lib/utils/server";
 
   let showWelcome = $state(false);
   
   onMount(async () => {
-    home();
+    getHomeData();
     getDetails();
     if (sessionStorage.getItem('justLoggedIn') === 'true') {
       showWelcome = true;

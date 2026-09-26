@@ -1,8 +1,7 @@
 <script lang="ts">
 	import favicon from '$lib/assets/favicon.svg';
 	import { page } from '$app/stores';
-	import SideNavBar from '$lib/components/layout/SideNavBar.svelte';
-	import TopBar from '$lib/components/layout/TopBar.svelte';
+	import { TopBar, SideNavBar } from '$lib/components';
 
 	let { children } = $props();
 

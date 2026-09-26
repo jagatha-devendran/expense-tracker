@@ -2,9 +2,7 @@
   import { onMount } from 'svelte';
   import { expenses } from '$lib/store';
   import type { Expense } from '$lib/models/Expense';
-  import DateHeader from '$lib/components/common/DateHeader.svelte';
-  import ExpenseCard from '$lib/components/cards/ExpenseCard.svelte';
-  import DeleteExpenseModal from '$lib/components/common/DeleteExpenseModal.svelte';
+  import { DateHeader, ExpenseCard, DeleteExpenseModal } from '$lib/components';
   import { getAllExpense } from '$lib/utils/server';
 
   let showDeleteModal = $state(false);

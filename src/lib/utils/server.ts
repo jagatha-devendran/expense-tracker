@@ -1,12 +1,19 @@
 import type { Expense } from "$lib/types/expense";
 import { login, signup, logout } from "$lib/services/auth";
-import { addExpense, getAllExpenses, getHomeData, getDetails as fetchDetails, saveUserSettings } from "$lib/services/expenses";
+import { 
+  addExpense, 
+  getAllExpenses, 
+  getHomeData as fetchHomeData, 
+  getDetails as fetchDetails, 
+  saveUserSettings 
+} from "$lib/services/expenses";
 
 export const handleLogin = login;
 export const handleSignup = signup;
 export const handleLogout = logout;
 export const getAllExpense = getAllExpenses;
-export const home = getHomeData;
+export const home = fetchHomeData;
+export const getHomeData = fetchHomeData;
 export const getDetails = fetchDetails;
 export const saveSettings = saveUserSettings;
 
