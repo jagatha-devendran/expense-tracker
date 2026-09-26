@@ -1,170 +1,42 @@
 <script lang="ts">
-
   import { onMount } from 'svelte';
-  import { goto } from '$app/navigation';
-
-  import { apiData, expenses } from '$lib/store';
-
+  import { expenses } from '$lib/store';
+  import type { Expense } from '$lib/models/Expense';
   import DateHeader from '$lib/components/DateHeader.svelte';
   import ExpenseCard from '$lib/components/ExpenseCard.svelte';
   import DeleteExpenseModal from '$lib/components/DeleteExpenseModal.svelte';
   import { getAllExpense } from '$lib/utils/server';
 
-
   let showDeleteModal = $state(false);
-  let selectedExpense = $state<any>(null);
+  let selectedExpense = $state<Expense | null>(null);
 
-    onMount(async () => {
+  onMount(async () => {
     try {
-      getAllExpense()
+      await getAllExpense();
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Error fetching expenses:', error);
     }
   });
 
-
-  // -----------------------------
-  // GET HISTORY
-  // -----------------------------
-
-  // onMount(async () => {
-
-  //     try {
-
-  //         const response = await fetch(
-  //             'http://localhost:8080/history',
-  //             {
-  //                 method: 'GET',
-  //                 credentials: 'include',
-
-  //                 headers: {
-  //                     'Content-Type': 'application/json'
-  //                 }
-  //             }
-  //         );
-
-
-  //         if (response.status === 401) {
-
-  //             goto('/login');
-
-  //             return;
-  //         }
-
-
-  //         const data = await response.json();
-
-
-  //         if (response.ok) {
-
-  //             apiData.set(data);
-
-  //         } else {
-
-  //             console.error(
-  //                 'Failed to fetch history:',
-  //                 data
-  //             );
-
-  //         }
-
-  //     } catch (error) {
-
-  //         console.error('Error:', error);
-
-  //     }
-
-  // });
-
-
-  // // -----------------------------
-  // // EDIT
-  // // -----------------------------
-
   function editExpense(id: number) {
-
-      // goto(`/addexpense?editId=${id}`);
-
+    // Navigate to edit expense
   }
 
-
-  // // -----------------------------
-  // // OPEN DELETE POPUP
-  // // -----------------------------
-
-  function openDeleteModal(expense: any) {
-
-      selectedExpense = expense;
-
-      showDeleteModal = true;
-
+  function openDeleteModal(expense: Expense) {
+    selectedExpense = expense;
+    showDeleteModal = true;
   }
-
-
-  // // -----------------------------
-  // // CLOSE DELETE POPUP
-  // // -----------------------------
 
   function closeDeleteModal() {
-
-      showDeleteModal = false;
-
-      selectedExpense = null;
-
+    showDeleteModal = false;
+    selectedExpense = null;
   }
-
-
-  // // -----------------------------
-  // // DELETE
-  // // -----------------------------
 
   async function deleteExpense() {
-
-  //     if (!selectedExpense) return;
-
-
-  //     try {
-
-  //         const response = await fetch(
-  //             `http://localhost:8080/expense/${selectedExpense.id}`,
-  //             {
-  //                 method: 'DELETE',
-  //                 credentials: 'include'
-  //             }
-  //         );
-
-
-  //         if (response.ok) {
-
-  //             expenses.update((currentExpenses) =>
-  //                 currentExpenses.filter(
-  //                     (expense) =>
-  //                         expense.id !== selectedExpense.id
-  //                 )
-  //             );
-
-
-  //             closeDeleteModal();
-
-  //         } else {
-
-  //             console.error(
-  //                 'Failed to delete expense'
-  //             );
-
-  //         }
-
-  //     } catch (error) {
-
-  //         console.error(
-  //             'Error deleting expense:',
-  //             error
-  //         );
-
-  //     }
-
+    if (!selectedExpense?.id) return;
+    // Call delete API when backend endpoint is ready
+    closeDeleteModal();
   }
-
 </script>
 
 

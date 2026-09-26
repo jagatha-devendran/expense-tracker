@@ -1,20 +1,18 @@
 <script lang="ts">
   import { saveSettings } from "$lib/utils/server";
-  import { onMount } from "svelte";
   import MonthlyIncomeCard from "./MonthlyIncomeCard.svelte";
   import MonthlyPlan from "./MonthlyPlan.svelte";
 
-    let income = $state(0);
-    let saving = $state(0);
+  let income = $state(0);
+  let saving = $state(0);
 
-    // onMount()
-    function onIncomeChange(value:String) {
-        income = Number(value)
-    }
-    function onSavingChange(value:String) {
-        saving = Number(value)
-    }
+  function onIncomeChange(value: string) {
+    income = Number(value);
+  }
 
+  function onSavingChange(value: string) {
+    saving = Number(value);
+  }
 </script>
 
 <main>
@@ -145,10 +143,6 @@
         opacity: 0.7;
         font-weight: 400;
         margin-top: 10px;
-    }
-    h6{
-        font-size: 14px;
-        font-weight: 400;
     }
     
     .material-symbols-outlined {

@@ -41,21 +41,18 @@ import { apiData } from "$lib/store";
       }                                                                                                                                                                         
     }  
 
-    // Function to send signup data to your Spring Boot backend
-  export async function handleSignup(name: any, email: any, password: any) {
+  export async function handleSignup(name: string, email: string, password: string) {
     const signupData = { name, email, password };
     console.log('Signing up with:', signupData);
 
-    // Connect to your Spring Boot endpoint:
     const response = await fetch('http://localhost:8080/auth/signup', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(signupData)
     });
-    const data = response.json();
+    const data = await response.json();
     console.log('Signup Response:', data);
-    handleLogin
-    // goto("/")
+    return data;
   }
 
   export async function addData(values: { name: string; price: number | ""; description: string; category: string; date: string; }) {     

@@ -1,13 +1,15 @@
 <script lang="ts">
-  import { goto } from "$app/navigation";
-  import { handleLogin, handleSignup } from "../../lib/utils/server";
+  import { handleLogin, handleSignup } from "$lib/utils/server";
 
   // Form variables for Sign Up
   let name = $state('');
   let email = $state('');
   let password = $state('');
 
-  
+  async function onSignup() {
+    await handleSignup(name, email, password);
+    await handleLogin(email, password);
+  }
 </script>
 
 <svelte:head>
@@ -50,13 +52,7 @@
       />
     </div>
 
-    <button onclick={()=>{
-      handleSignup(name, email, password);
-      console.log("handled signup")
-      handleLogin(email, password);
-      console.log("handled login")
-    }
-      } class="submit-btn">
+    <button onclick={onSignup} class="submit-btn">
       Create Account
     </button>
   </div>

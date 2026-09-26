@@ -1,30 +1,8 @@
 <script lang="ts">
-  import { goto } from "$app/navigation";
   import { handleLogin } from "$lib/utils/server";
-  import { onMount } from "svelte";
 
-  // Form variables for Login
   let email = $state('');
   let password = $state('');
- 
-
-  // // Function to send login data to your Spring Boot backend
-  // async function handleLogin() {
-  //   const loginData = { email, password };
-  //   console.log('Logging in with:', loginData);
-
-  //   // Connect to your Spring Boot endpoint:
-  //   const response = await fetch('http://localhost:8080/auth/login', {
-  //     method: 'POST',
-  //     headers: { 'Content-Type': 'application/json' },
-  //     body: JSON.stringify(loginData)
-  //   });
-  //   let token = await response.text();
-  //   localStorage.setItem('jwt_token', token);
-  //   console.log(token);
-
-  //   console.log('Login Response:', token);
-  // }
 </script>
 
 <svelte:head>

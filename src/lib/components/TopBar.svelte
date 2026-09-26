@@ -1,39 +1,23 @@
-<script>
-// @ts-nocheck
-  import { onMount } from "svelte";
+<script lang="ts">
   import ProfileDropdown from "./ProfileDropdown.svelte";
   import { handleLogout } from "$lib/utils/server";
+  import logo from "$lib/assets/logo.png";
 
-  
-  // let username = localStorage.getItem("username") // [500] GET /
-  // TypeError: localStorage.getItem is not a function This error occurs when there is no user and in the localStorage there is no item 
-  // so to handle that we use the below line
   let username = $state(typeof window !== "undefined" ? (localStorage.getItem("username") || "User") : "User");
-  // Check if running in the browser before accessing localStorage if it is not browser then undef so username bcomes User 
-  // !== refers to "not strictly equal to"
-  // window is a browser object; typeof window returns "object" in the browser and "undefined" on the server.
-  // When your website runs in a browser like Chrome, the browser creates a window object automatically. 
-  // It represents the browser window/tab where your webpage is running.
-  // It contains things provided by the browser, for example:window.localStorage
   let showProfile = $state(false);
-  let profileContainer = $state(null);
-
-  onMount(() => {
-    // username = localStorage.getItem("username") || "User";
-  });
+  let profileContainer = $state<HTMLElement | null>(null);
 
   function toggleProfile() {
     showProfile = !showProfile;
   }
 
-  function handleClickOutside(event) {
-    if (showProfile && profileContainer && !profileContainer.contains(event.target)) {
+  function handleClickOutside(event: MouseEvent) {
+    if (showProfile && profileContainer && !profileContainer.contains(event.target as Node)) {
       showProfile = false;
     }
-    
   }
 
-  function handleKeydown(event) {
+  function handleKeydown(event: KeyboardEvent) {
     if (event.key === "Escape") {
       showProfile = false;
     }
@@ -44,10 +28,7 @@
 
 <header>
     <div class="title-icon">
-        <img src="src/lib/assets/logo.png" alt="expense_tracker" class="img-align">
-        <!-- <span class="material-symbols-outlined color">
-        account_balance_wallet
-        </span> -->
+        <img src={logo} alt="expense_tracker" class="img-align">
         <h3>Expense Tracker</h3>
     </div>
 
@@ -67,12 +48,6 @@
     
 </header>
 <style>
-
-*, *::before, *::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 
 
 header{

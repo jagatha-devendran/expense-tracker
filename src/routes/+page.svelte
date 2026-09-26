@@ -5,35 +5,24 @@
   import SavingCard from "$lib/components/SavingCard.svelte";
   import RecentExpenseCard from "$lib/components/RecentExpenseCard.svelte";
   import petrol_bunk from "$lib/assets/petrol_bunk.png";
-  import { apiData, expenses } from "$lib/store";
-  import TopBar from "$lib/components/TopBar.svelte";
-  import BottomNavBar from "$lib/components/BottomNavBar.svelte";
-  import SideNavBar from "$lib/components/SideNavBar.svelte";
+  import { expenses } from "$lib/store";
   import { getDetails, home } from "$lib/utils/server";
 
   let showWelcome = $state(false);
   
   onMount(async () => {
-    home()
-    getDetails()
-    if (sessionStorage.getItem('justLoggedIn') === 'true') {                                                                                                                
-          showWelcome = true;                                                                                                                                                   
-          sessionStorage.removeItem('justLoggedIn'); // Remove so it only shows once                                                                                            
-                                                                                                                                                                                
-          setTimeout(() => {                                                                                                                                                    
-            showWelcome = false;                                                                                                                                                
-          }, 3500);                                                                                                                                                             
-        }
+    home();
+    getDetails();
+    if (sessionStorage.getItem('justLoggedIn') === 'true') {
+      showWelcome = true;
+      sessionStorage.removeItem('justLoggedIn');
+
+      setTimeout(() => {
+        showWelcome = false;
+      }, 3500);
+    }
   });
-
 </script>
-
-<!-- <div class="top-bar">
-  <TopBar />
-</div> -->
-
-<!-- <div class="layout"> -->
-  <!-- <SideNavBar /> -->
 
 
 <main>
@@ -100,15 +89,6 @@
   main{
     width: 100%;
     margin-right: 30px;
-  }
-  /* .layout{
-    display: grid;
-    grid-template-columns: 190px 1fr;
-    gap: 20px;    
-  } */
-
-  .top-bar{
-    /* margin: 0px; */
   }
 
   .section-spacer {

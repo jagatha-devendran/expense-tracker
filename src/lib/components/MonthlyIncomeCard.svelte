@@ -1,14 +1,11 @@
 <script lang="ts">
 
     interface Props {
-        icon_name?: String;
-        title?: String;
-        label?: String;
-        description?: String;
-        onValueChange?: (value:String) => void;
-
-        // income?: number;
-        // savingGoal?: number;
+        icon_name?: string;
+        title?: string;
+        label?: string;
+        description?: string;
+        onValueChange?: (value: string) => void;
     }
 
     let {
@@ -19,8 +16,9 @@
         onValueChange = () => {}
     }: Props = $props();
 
-    function onChange(event:any) {
-        onValueChange(event.target.value)
+    function onChange(event: Event) {
+        const target = event.target as HTMLInputElement;
+        onValueChange(target.value);
     }
 </script>
 
@@ -41,7 +39,7 @@
 
         <input
             type="number"
-            on:change= {onChange}
+            onchange={onChange}
             placeholder="eg: 30,000"
         />
     </div>

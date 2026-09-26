@@ -1,7 +1,8 @@
 <script lang="ts">
+    import type { Expense } from "$lib/models/Expense";
 
     interface Props {
-        expense: any;
+        expense: Expense | any;
         onCancel: () => void;
         onConfirm: () => void;
     }
@@ -12,39 +13,48 @@
         onConfirm
     }: Props = $props();
 
+    function handleKeydown(event: KeyboardEvent) {
+        if (event.key === 'Escape') {
+            onCancel();
+        }
+    }
 </script>
 
+<svelte:window onkeydown={handleKeydown} />
 
-<div class="modal-overlay" onclick={onCancel}>
-
+<div
+    class="modal-overlay"
+    onclick={onCancel}
+    onkeydown={(e) => e.key === 'Escape' && onCancel()}
+    role="presentation"
+>
+    <!-- svelte-ignore a11y_click_events_have_key_events -->
     <div
         class="delete-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="delete-dialog-title"
+        tabindex="-1"
         onclick={(event) => event.stopPropagation()}
     >
-
         <div class="delete-icon">
-
             <span class="material-symbols-outlined">
                 delete
             </span>
-
         </div>
-
 
         <button
             class="close-button"
             onclick={onCancel}
+            type="button"
+            aria-label="Close dialog"
         >
-
             <span class="material-symbols-outlined">
                 close
             </span>
-
         </button>
 
-
-        <h2>Delete expense?</h2>
-
+        <h2 id="delete-dialog-title">Delete expense?</h2>
 
         <p>
             Are you sure you want to delete this expense?
@@ -52,28 +62,24 @@
             This action cannot be undone.
         </p>
 
-
         <div class="modal-actions">
-
             <button
                 class="cancel-button"
                 onclick={onCancel}
+                type="button"
             >
                 Cancel
             </button>
 
-
             <button
                 class="confirm-delete-button"
                 onclick={onConfirm}
+                type="button"
             >
                 Delete
             </button>
-
         </div>
-
     </div>
-
 </div>
 
 

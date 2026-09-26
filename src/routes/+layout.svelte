@@ -1,9 +1,8 @@
 <script lang="ts">
 	import favicon from '$lib/assets/favicon.svg';
-	import BottomNavBar from '$lib/components/BottomNavBar.svelte';
 	import { page } from '$app/stores';
-  import SideNavBar from '$lib/components/SideNavBar.svelte';
-  import TopBar from '$lib/components/TopBar.svelte';
+	import SideNavBar from '$lib/components/SideNavBar.svelte';
+	import TopBar from '$lib/components/TopBar.svelte';
 
 	let { children } = $props();
 
@@ -20,10 +19,8 @@
 	<TopBar />
 {/if}
 
-<!-- <main class:auth-layout={isAuthPage}> -->
- <main class={isAuthPage ? 'auth-layout' : 'content'}>
+<main class={isAuthPage ? 'auth-layout' : 'content'}>
 	{#if !isAuthPage}
-	<!-- <BottomNavBar /> -->
 		<SideNavBar />
 	{/if}
 	{@render children()}
