@@ -9,12 +9,13 @@
   import TopBar from "$lib/components/TopBar.svelte";
   import BottomNavBar from "$lib/components/BottomNavBar.svelte";
   import SideNavBar from "$lib/components/SideNavBar.svelte";
-  import { home } from "$lib/utils/server";
+  import { getDetails, home } from "$lib/utils/server";
 
   let showWelcome = $state(false);
   
   onMount(async () => {
     home()
+    getDetails()
     if (sessionStorage.getItem('justLoggedIn') === 'true') {                                                                                                                
           showWelcome = true;                                                                                                                                                   
           sessionStorage.removeItem('justLoggedIn'); // Remove so it only shows once                                                                                            

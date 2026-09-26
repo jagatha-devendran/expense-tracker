@@ -117,14 +117,22 @@ import { apiData } from "$lib/store";
       });
   }
 
+  export async function getDetails(){
+    fetch("http://localhost:8080/getDetails", {
+      credentials: "include"
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data.income);
+        // income = data.
+                
+      }).catch(error => {
+        console.log(error);
+        return [];
+      });
+  }
+
   export async function saveSettings(income:number, saving_goal:number) {     
-    // const expense: Expense = {
-    //   name: values.name.trim() || values.category || 'Expense',
-    //   price: typeof values.price === 'number' ? values.price : (parseFloat(values.price as string) || 0),
-    //   category: values.category,
-    //   description: values.description,
-    //   date: values.date
-    // };
 
     console.log("Saving Settings:", income, saving_goal);
     // await addExpense(expense);
@@ -137,5 +145,4 @@ import { apiData } from "$lib/store";
         'Content-Type': 'application/json'
       }
     });
-    console.log("Added Expense");
   }
