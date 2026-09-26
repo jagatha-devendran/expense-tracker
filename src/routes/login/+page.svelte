@@ -1,35 +1,12 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
+  import { handleLogin } from "$lib/utils/server";
+  import { onMount } from "svelte";
 
   // Form variables for Login
   let email = $state('');
   let password = $state('');
-
-  async function handleLogin() {                                                                                                                                              
-      const loginData = { email, password };                                                                                                                                    
-                                                                                                                                                                                
-      const response = await fetch('http://localhost:8080/auth/login', {                                                                                                        
-        method: 'POST',                                                                                                                                                         
-        headers: { 'Content-Type': 'application/json' },                                                                                                                        
-        credentials: 'include', // <--- Sends and receives cookies                                                                                                              
-        body: JSON.stringify(loginData)                                                                                                                                         
-      });                                                                                                                                                                       
-                                                                                                                                                                                
-      if (response.ok) {    
-        await response.json().then((data) => {
-          localStorage.setItem('username', data.username);
-          localStorage.setItem('email', data.email);
-          localStorage.removeItem('jwt_token');
-          localStorage.removeItem('user');
-
-        });
-        
-        // 
-        // console.log(json.username)
-        console.log('Login successful! Cookie stored by browser.');   
-        goto("/")                                                                                                                                                                                                                                               
-      }                                                                                                                                                                         
-    }  
+ 
 
   // // Function to send login data to your Spring Boot backend
   // async function handleLogin() {
@@ -80,7 +57,7 @@
       />
     </div>
 
-    <button onclick={handleLogin} class="submit-btn">
+    <button onclick={()=>handleLogin(email, password)} class="submit-btn">
       Sign In
     </button>
   </div>
@@ -92,7 +69,10 @@
   </p>
 </div>
 
+
 <style>
+
+
   .container {
     max-width: 440px;
     margin: 40px auto;

@@ -1,23 +1,13 @@
 <script lang="ts">
+  import { goto } from "$app/navigation";
+  import { handleLogin, handleSignup } from "../../lib/utils/server";
+
   // Form variables for Sign Up
   let name = $state('');
   let email = $state('');
   let password = $state('');
 
-  // Function to send signup data to your Spring Boot backend
-  async function handleSignup() {
-    const signupData = { name, email, password };
-    console.log('Signing up with:', signupData);
-
-    // Connect to your Spring Boot endpoint:
-    const response = await fetch('http://localhost:8080/auth/signup', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(signupData)
-    });
-    const data = response.json();
-    console.log('Signup Response:', data);
-  }
+  
 </script>
 
 <svelte:head>
@@ -60,7 +50,13 @@
       />
     </div>
 
-    <button onclick={handleSignup} class="submit-btn">
+    <button onclick={()=>{
+      handleSignup(name, email, password);
+      console.log("handled signup")
+      handleLogin(email, password);
+      console.log("handled login")
+    }
+      } class="submit-btn">
       Create Account
     </button>
   </div>

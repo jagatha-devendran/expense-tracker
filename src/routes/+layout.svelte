@@ -2,6 +2,8 @@
 	import favicon from '$lib/assets/favicon.svg';
 	import BottomNavBar from '$lib/components/BottomNavBar.svelte';
 	import { page } from '$app/stores';
+  import SideNavBar from '$lib/components/SideNavBar.svelte';
+  import TopBar from '$lib/components/TopBar.svelte';
 
 	let { children } = $props();
 
@@ -14,14 +16,19 @@
 	<link rel="icon" href={favicon} />
 </svelte:head>
 
+{#if !isAuthPage}
+	<TopBar />
+{/if}
+
 <!-- <main class:auth-layout={isAuthPage}> -->
- <main class={isAuthPage ? 'auth-layout' : ''}>
+ <main class={isAuthPage ? 'auth-layout' : 'content'}>
+	{#if !isAuthPage}
+	<!-- <BottomNavBar /> -->
+		<SideNavBar />
+	{/if}
 	{@render children()}
 </main>
 
-{#if !isAuthPage}
-	<BottomNavBar />
-{/if}
 
 <style>
 	:global(body) {
@@ -32,12 +39,19 @@
 	}
 
 	main {
-		padding: 20px;
-		padding-bottom: 100px; /* Space for BottomNavBar */
-		max-width: 800px;
-		margin: 0 auto;
+		/* padding: 20px; */
+		/* padding-bottom: 100px; Space for BottomNavBar */
+		/* max-width: 800px; */
+		margin-right: 20px;
+		/* margin-top: 100px; */
 	}
-
+	.content{
+		height: 100vh;
+		width: 100vw;
+		display: flex;
+		flex-direction: row;
+		gap: 20px;    
+  }
 	main.auth-layout {
 		padding-bottom: 40px;
 	}

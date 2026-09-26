@@ -7,24 +7,35 @@
   import petrol_bunk from "$lib/assets/petrol_bunk.png";
   import { apiData, expenses } from "$lib/store";
   import TopBar from "$lib/components/TopBar.svelte";
+  import BottomNavBar from "$lib/components/BottomNavBar.svelte";
+  import SideNavBar from "$lib/components/SideNavBar.svelte";
+  import { home } from "$lib/utils/server";
 
+  let showWelcome = $state(false);
+  
   onMount(async () => {
-    fetch("http://localhost:8080/home", {
-      credentials: "include"
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-        apiData.set(data);        
-      }).catch(error => {
-        console.log(error);
-        return [];
-      });
+    home()
+    if (sessionStorage.getItem('justLoggedIn') === 'true') {                                                                                                                
+          showWelcome = true;                                                                                                                                                   
+          sessionStorage.removeItem('justLoggedIn'); // Remove so it only shows once                                                                                            
+                                                                                                                                                                                
+          setTimeout(() => {                                                                                                                                                    
+            showWelcome = false;                                                                                                                                                
+          }, 3500);                                                                                                                                                             
+        }
   });
 
 </script>
 
-<TopBar />
+<!-- <div class="top-bar">
+  <TopBar />
+</div> -->
+
+<!-- <div class="layout"> -->
+  <!-- <SideNavBar /> -->
+
+
+<main>
 
 <BalanceCard />
 
@@ -61,8 +72,44 @@
     <a href="/addExpense" class="add-btn">Add Your First Expense</a>
   </div>
 {/if}
+</main>
+
+
+{#if showWelcome}                                                                                                                                                           
+<div class="welcome-popup">                                                                                                                                               
+  👋 You have logged in, welcome aboard!                                                                                                                                  
+</div>                                                                                                                                                                    
+{/if}   
+<!-- </div> -->
+
 
 <style>
+.welcome-popup {                                                                                                                                                            
+      position: fixed;                                                                                                                                                          
+      top: 24px;                                                                                                                                                                
+      right: 24px;                                                                                                                                                              
+      background-color: #6349C0;                                                                                                                                                
+      color: #ffffff;                                                                                                                                                           
+      padding: 14px 24px;                                                                                                                                                       
+      border-radius: 12px;                                                                                                                                                      
+      font-weight: 600;                                                                                                                                                         
+      box-shadow: 0 4px 16px rgba(99, 73, 192, 0.3);                                                                                                                            
+      z-index: 9999;                                                                                                                                                            
+    } 
+  main{
+    width: 100%;
+    margin-right: 30px;
+  }
+  /* .layout{
+    display: grid;
+    grid-template-columns: 190px 1fr;
+    gap: 20px;    
+  } */
+
+  .top-bar{
+    /* margin: 0px; */
+  }
+
   .section-spacer {
     height: 32px;
   }

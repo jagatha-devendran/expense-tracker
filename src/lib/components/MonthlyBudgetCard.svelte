@@ -8,8 +8,8 @@
     }
 
     let { 
-        spent_amount = 2140.50, 
-        remaining_amt = 859.50, 
+        spent_amount = 0.0, 
+        remaining_amt = 0.0, 
         percent_used = 71 
     }: Props = $props();
 </script>
@@ -25,10 +25,10 @@
     </div>
     
     <div class="spent-label">Spent This Month</div>
-    <div class="spent-amount">${spent_amount.toLocaleString()}</div>
+    <div class="spent-amount">₹{spent_amount.toLocaleString()}</div>
     
     <div class="remain-layer">
-        <div class="remain-text">Remaining: ${remaining_amt.toLocaleString()}</div>
+        <div class="remain-text">Remaining: ₹{remaining_amt.toLocaleString()}</div>
         <div class="used-text">{percent_used}% used</div>
     </div>
     

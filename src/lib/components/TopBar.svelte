@@ -2,7 +2,7 @@
 // @ts-nocheck
   import { onMount } from "svelte";
   import ProfileDropdown from "./ProfileDropdown.svelte";
-  import { handleLogout } from "$lib/utils/logout";
+  import { handleLogout } from "$lib/utils/server";
 
   
   // let username = localStorage.getItem("username") // [500] GET /
@@ -14,7 +14,7 @@
   // window is a browser object; typeof window returns "object" in the browser and "undefined" on the server.
   // When your website runs in a browser like Chrome, the browser creates a window object automatically. 
   // It represents the browser window/tab where your webpage is running.
-// It contains things provided by the browser, for example:window.localStorage
+  // It contains things provided by the browser, for example:window.localStorage
   let showProfile = $state(false);
   let profileContainer = $state(null);
 
@@ -44,7 +44,10 @@
 
 <header>
     <div class="title-icon">
-        <img src="" alt="">
+        <img src="src/lib/assets/logo.png" alt="expense_tracker" class="img-align">
+        <!-- <span class="material-symbols-outlined color">
+        account_balance_wallet
+        </span> -->
         <h3>Expense Tracker</h3>
     </div>
 
@@ -53,7 +56,7 @@
             <div class="circle-container">
                 <h3 class="text">{username?.charAt(0).toUpperCase()}</h3>
             </div>
-            <h4>{username}</h4>
+            <p>{username}</p>
             <span class="material-symbols-outlined">stat_minus_1</span>       
         </button>
 
@@ -75,10 +78,26 @@
 header{
     display: flex;
     justify-content: space-between;
-    padding-bottom: 20px;
-    
+    align-items: center;
+    margin-right: 20px;
+    /* position: absolute;
+    z-index: 1;
+    width: 100%;
+    left: 0px;
+    top: 0px; */
 }
-
+.img-align{
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  /* margin: 0px;
+  padding: 0px;
+  height: 100px;
+  width: 100px; */
+}
+/* .color{
+  color: #6349C0
+} */
 .profile-container {
     position: relative;
 }
@@ -86,6 +105,8 @@ header{
 .title-icon{
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    /* gap: 5px; */
 }
 .profile {
     display: flex;
@@ -94,8 +115,8 @@ header{
     cursor: pointer;
 }
 .circle-container {
-  width: 30px;
-  height: 30px;
+  width: 37px;
+  height: 37px;
   background-color: #7f5ef7;
   border-radius: 50%; 
   margin-right: 10px;
@@ -105,6 +126,11 @@ header{
 }
 .text{
     color: aliceblue;
+    font-size: 16px;
+}
+p{
+  font-size: 14px;
+  font-weight: 600;
 }
 .material-symbols-outlined {
   font-variation-settings:

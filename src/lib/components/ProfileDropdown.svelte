@@ -1,10 +1,11 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
-  import { handleLogout } from "../utils/logout";
+  import { handleLogout } from "../utils/server";
   import { onMount } from "svelte";
 
 
     let email = $state(typeof window !== "undefined" ? (localStorage.getItem("email") || "") : "");
+
 
     onMount(() => {
         email = localStorage.getItem("email") || "";
@@ -16,7 +17,7 @@
         onLogout?: () => void;
         // onProfile?: () => void;
         // onChangePassword?: () => void;
-        // onSettings?: () => void;
+        onSettings?: () => void;
     }
 
     let {
@@ -24,7 +25,7 @@
         onLogout = () => handleLogout(),
         // onProfile = () => {},
         // onChangePassword = () => {},
-        // onSettings = () => {}
+        onSettings = () => {goto("/settings")}
     }: Props = $props();
 </script>
 
@@ -52,7 +53,7 @@
         <span>Change Password</span>
     </button> -->
 
-    <button class="menu-item" >
+    <button class="menu-item" onclick={onSettings}>
         <span class="material-symbols-outlined">settings</span>
         <span>Settings</span>
     </button>
@@ -120,7 +121,7 @@
     .email {
         font-size: 13px;
         color: #777;
-        /* overflow: hidden; */
+        overflow: hidden;
         /* text-overflow: ellipsis; */
     }
 

@@ -5,7 +5,7 @@
         save_amt?: number;
     }
 
-    let { save_amt = 450.00 }: Props = $props();
+    let { save_amt = 0.00 }: Props = $props();
 </script>
 
 <div class="save-container">
@@ -13,13 +13,13 @@
         Saving Goal
     </div>
     <div class="layer">
-        <div class="save-amount">${save_amt.toLocaleString()}</div>
+        <div class="save-amount">₹{save_amt.toLocaleString()}</div>
         <div class="pig-container">
             <img src={pig} alt="Piggy Bank">
         </div>
     </div>
     <div class="message">
-        You're $50 ahead of last month's pace. Great job, Dad!
+        You're ₹50 ahead of last month's pace. Great job, Dad!
     </div>
 </div>
 

@@ -1,41 +1,40 @@
 <script lang="ts">
-  // import { addExpense } from "$lib/services/expenses";
-  import type { Expense } from "$lib/models/Expense";
+  import { addData } from "$lib/utils/server";
+  
+  const valueDefaults = {
+        name: '',
+        price: <number | ''>(''),
+        description: '',
+        category:'',
+        date : new Date().toISOString().split('T')[0]
+    };
+  let values = $state({ ...valueDefaults });
+  let showSuccess = $state(false);
 
-  let name = $state('');
-  let price = $state<number | ''>('');
-  let description = $state('');
-  let category = $state('');
-  let date = new Date().toISOString().split('T')[0];
+  let box:any;
+	
+    function onAddClick(){
+      addData(values);
+      values = { ...valueDefaults };
+      scrollToTop();
+      showSuccess = true;
+      setTimeout(() => {                                                                                                                                                      
+          showSuccess = false;                                                                                                                                                  
+        }, 3000);  
+    }
+
+	function scrollToTop() {
+		box.scrollIntoView();
+	}
 
   function selectCategory(category_name: string) {
-    category = category_name;
-    console.log("Selected category:", category);
+    values.category = category_name;
+    console.log("Selected category:", values.category);
   }
 
-  async function addData() {     
-    const expense: Expense = {
-      name: name.trim() || category || 'Expense',
-      price: typeof price === 'number' ? price : (parseFloat(price as string) || 0),
-      category,
-      description,
-      date
-    };
-
-    console.log("Adding Expense:", expense);
-    // await addExpense(expense);
-    const response = await fetch('http://localhost:8080/addExpense', {
-      method: 'POST',
-      body: JSON.stringify(expense),
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-    console.log("Added Expense");
-  }
+  
 </script>
-
+<main bind:this={box}>
 <h1 class="font">Add New</h1>
 <h4 class="font head-description">Track your spending quickly and easily.</h4>
 
@@ -44,7 +43,7 @@
   <h5 class="field-label">TITLE</h5>
   <input 
     type="text" 
-    bind:value={name} 
+    bind:value={values.name} 
     class="big-input" 
     placeholder="e.g. Coffee" 
   />
@@ -57,7 +56,7 @@
     <span class="rs-symbol">$</span>
     <input 
       type="number" 
-      bind:value={price} 
+      bind:value={values.price} 
       class="big-input" 
       placeholder="0.00" 
     />
@@ -68,49 +67,49 @@
 <div class="card">
   <h5 class="category">CATEGORY</h5>
   <div class="category-grid">
-      <button onclick={() => selectCategory("Grocery")} class={category === "Grocery" ? 'selected' : 'category-item'}>
+      <button onclick={() => selectCategory("Grocery")} class={values.category === "Grocery" ? 'selected' : 'category-item'}>
         <div class="align-category">
           <span class="material-symbols-outlined">shopping_cart</span>
           <p>Grocery</p>
         </div>
       </button>
   
-      <button onclick={() => selectCategory("Restaurant")} class={category === "Restaurant" ? 'selected' : 'category-item'}>
+      <button onclick={() => selectCategory("Restaurant")} class={values.category === "Restaurant" ? 'selected' : 'category-item'}>
         <span class="material-symbols-outlined">restaurant</span>
         <p>Restaurant</p>
       </button>
   
-      <button onclick={() => selectCategory("Petrol")} class={category === "Petrol" ? 'selected' : 'category-item'}>
+      <button onclick={() => selectCategory("Petrol")} class={values.category === "Petrol" ? 'selected' : 'category-item'}>
         <span class="material-symbols-outlined">local_gas_station</span>
         <p>Petrol</p>
       </button>
   
-      <button onclick={() => selectCategory("Health")} class={category === "Health" ? 'selected' : 'category-item'}>
+      <button onclick={() => selectCategory("Health")} class={values.category === "Health" ? 'selected' : 'category-item'}>
         <span class="material-symbols-outlined">medical_services</span>
         <p>Health</p>
       </button>
   
-      <button onclick={() => selectCategory("Iyarkai Foods")} class={category === "Iyarkai Foods" ? 'selected' : 'category-item'}>
+      <button onclick={() => selectCategory("Iyarkai Foods")} class={values.category === "Iyarkai Foods" ? 'selected' : 'category-item'}>
         <span class="material-symbols-outlined">eco</span>
         <p>Iyarkai</p>
       </button>
   
-      <button onclick={() => selectCategory("Bus Travel")} class={category === "Bus Travel" ? 'selected' : 'category-item'}>
+      <button onclick={() => selectCategory("Bus Travel")} class={values.category === "Bus Travel" ? 'selected' : 'category-item'}>
         <span class="material-symbols-outlined">directions_bus</span>
         <p>Bus Travel</p>
       </button>
   
-      <button onclick={() => selectCategory("Gifts")} class={category === "Gifts" ? 'selected' : 'category-item'}>
+      <button onclick={() => selectCategory("Gifts")} class={values.category === "Gifts" ? 'selected' : 'category-item'}>
         <span class="material-symbols-outlined">featured_seasonal_and_gifts</span>
         <p>Gifts</p>
       </button>
       
-      <button onclick={() => selectCategory("Dress Purchase")} class={category === "Dress Purchase" ? 'selected' : 'category-item'}>
+      <button onclick={() => selectCategory("Dress Purchase")} class={values.category === "Dress Purchase" ? 'selected' : 'category-item'}>
         <span class="material-symbols-outlined">apparel</span>
         <p>Dress</p>
       </button>
   
-      <button onclick={() => selectCategory("Other")} class={category === "Other" ? 'selected' : 'category-item'}>
+      <button onclick={() => selectCategory("Other")} class={values.category === "Other" ? 'selected' : 'category-item'}>
         <span class="material-symbols-outlined">more_horiz</span>
         <p>Other</p>
       </button>
@@ -121,17 +120,30 @@
 <div class="notes-card">
   <h5 class="field-label">DESCRIPTION</h5>
   <input 
-    bind:value={description}
+    bind:value={values.description}
     type="text" 
     class="note-input" 
     placeholder="What was this for? (e.g. Morning coffee)" 
   />
 </div>
 
-<button onclick={addData} class="save-btn">Save Expense</button>
+<button onclick={onAddClick} class="save-btn">Save Expense</button>
 <div style="height:100px"></div>
 
+{#if showSuccess}                                                                                                                                                           
+      <div class="toast-popup">                                                                                                                                                 
+        ✓ Expense added successfully!                                                                                                                                           
+      </div>                                                                                                                                                                    
+{/if} 
+
+</main>
+
 <style>
+main{
+  width: 100%;
+  margin-left: 20px;
+  margin-right: 30px;
+}
 h1 {
   font-size: 48px;
   color: #6349C0;
@@ -267,4 +279,23 @@ h1 {
 .save-btn:active {
   transform: scale(0.98);
 }
+
+.toast-popup {                                                                                                                                                              
+      position: fixed;                                                                                                                                                          
+      top: 24px;                                                                                                                                                                
+      right: 24px;                                                                                                                                                              
+      background-color: #6349C0;                                                                                                                                                
+      color: #ffffff;                                                                                                                                                           
+      padding: 14px 24px;                                                                                                                                                       
+      border-radius: 12px;                                                                                                                                                      
+      font-weight: 600;                                                                                                                                                         
+      box-shadow: 0 4px 16px rgba(99, 73, 192, 0.3);                                                                                                                            
+      z-index: 9999;                                                                                                                                                            
+      animation: fadeIn 0.3s ease-out;                                                                                                                                          
+    }                                                                                                                                                                           
+                                                                                                                                                                                
+    /* @keyframes fadeIn {                                                                                                                                                         
+      from { opacity: 0; transform: translateY(-10px); }                                                                                                                        
+      to { opacity: 1; transform: translateY(0); }                                                                                                                              
+    }       */
 </style>

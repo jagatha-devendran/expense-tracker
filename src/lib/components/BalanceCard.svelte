@@ -6,7 +6,7 @@
         percent?: number;
     }
 
-    let { balance = "$12,450.00", percent = 2.4 }: Props = $props();
+    let { balance = "0.00", percent = 2 }: Props = $props();
 </script>
 
 <div class="container">
@@ -14,7 +14,7 @@
         TOTAL BALANCE
     </div>
     <div class="balance">
-        {balance}
+        ₹{balance}
     </div>
     <div class="chip">
         <div class="trending-up">
