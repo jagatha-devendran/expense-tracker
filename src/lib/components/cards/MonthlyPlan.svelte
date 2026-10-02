@@ -1,228 +1,188 @@
 <script lang="ts">
+	interface Props {
+		income?: number;
+		savingGoal?: number;
+		available?: number;
+	}
 
-    interface Props {
-        income?: number;
-        savingGoal?: number;
-        available?: number;
-    }
-
-    let {
-        income = 0,
-        savingGoal = 0,
-        available = 0,
-    }: Props = $props();
-
-
+	let { income = 0, savingGoal = 0, available = 0 }: Props = $props();
 </script>
 
-
 <div class="plan-container">
+	<!-- LEFT: Monthly Plan -->
+	<div class="plan-title">
+		<div class="icon-container">
+			<span class="material-symbols-outlined"> calendar_month </span>
+		</div>
 
-    <!-- LEFT: Monthly Plan -->
-    <div class="plan-title">
+		<div>
+			<h3>Your monthly plan</h3>
 
-        <div class="icon-container">
-            <span class="material-symbols-outlined">
-                calendar_month
-            </span>
-        </div>
+			<p>
+				Here's a quick preview of how your money will be<br />
+				allocated based on your settings.
+			</p>
+		</div>
+	</div>
 
-        <div>
-            <h3>Your monthly plan</h3>
+	<!-- INCOME -->
+	<div class="plan-item">
+		<div class="icon-container">
+			<span class="material-symbols-outlined"> north </span>
+		</div>
 
-            <p>
-                Here's a quick preview of how your money will be<br>
-                allocated based on your settings.
-            </p>
-        </div>
+		<div>
+			<span>Income</span>
 
-    </div>
+			<strong>
+				₹{income.toLocaleString()}
+			</strong>
+		</div>
+	</div>
 
+	<!-- SAVING GOAL -->
+	<div class="plan-item">
+		<div class="icon-container">
+			<span class="material-symbols-outlined"> savings </span>
+		</div>
 
-    <!-- INCOME -->
-    <div class="plan-item">
+		<div>
+			<span>Saving goal</span>
 
-        <div class="icon-container">
-            <span class="material-symbols-outlined">
-                north
-            </span>
-        </div>
+			<strong>
+				₹{savingGoal.toLocaleString()}
+			</strong>
+		</div>
+	</div>
 
-        <div>
-            <span>Income</span>
+	<!-- AVAILABLE -->
+	<div class="plan-item available">
+		<div class="icon-container">
+			<span class="material-symbols-outlined"> shopping_cart </span>
+		</div>
 
-            <strong>
-                ₹{income.toLocaleString()}
-            </strong>
-        </div>
+		<div>
+			<span>Available for spending</span>
 
-    </div>
-
-
-    <!-- SAVING GOAL -->
-    <div class="plan-item">
-
-        <div class="icon-container">
-            <span class="material-symbols-outlined">
-                savings
-            </span>
-        </div>
-
-        <div>
-            <span>Saving goal</span>
-
-            <strong>
-                ₹{savingGoal.toLocaleString()}
-            </strong>
-        </div>
-
-    </div>
-
-
-    <!-- AVAILABLE -->
-    <div class="plan-item available">
-
-        <div class="icon-container">
-            <span class="material-symbols-outlined">
-                shopping_cart
-            </span>
-        </div>
-
-        <div>
-            <span>Available for spending</span>
-
-            <strong>
-                ₹{available.toLocaleString()}
-            </strong>
-        </div>
-
-    </div>
-
+			<strong>
+				₹{available.toLocaleString()}
+			</strong>
+		</div>
+	</div>
 </div>
 
-
 <style>
+	.plan-container {
+		background: #f8f6ff;
+		border: 1px solid #e5dfff;
+		border-radius: 12px;
 
-    .plan-container {
-        background: #F8F6FF;
-        border: 1px solid #E5DFFF;
-        border-radius: 12px;
+		padding: 24px 28px;
 
-        padding: 24px 28px;
+		display: flex;
+		align-items: center;
 
-        display: flex;
-        align-items: center;
+		gap: 35px;
+	}
 
-        gap: 35px;
-    }
+	/* LEFT SECTION */
 
+	.plan-title {
+		display: flex;
+		align-items: center;
 
-    /* LEFT SECTION */
+		gap: 18px;
 
-    .plan-title {
-        display: flex;
-        align-items: center;
+		flex: 1.5;
+	}
 
-        gap: 18px;
+	.plan-title h3 {
+		margin: 0;
 
-        flex: 1.5;
-    }
+		font-size: 18px;
+		color: #17174a;
+	}
 
+	.plan-title p {
+		margin: 8px 0 0;
 
-    .plan-title h3 {
-        margin: 0;
+		color: #8a91a5;
 
-        font-size: 18px;
-        color: #17174A;
-    }
+		font-size: 14px;
 
+		line-height: 1.5;
+	}
 
-    .plan-title p {
-        margin: 8px 0 0;
+	/* ICON */
 
-        color: #8A91A5;
+	.icon-container {
+		width: 48px;
+		height: 48px;
 
-        font-size: 14px;
+		min-width: 48px;
+		min-height: 48px;
 
-        line-height: 1.5;
-    }
+		border-radius: 12px;
 
+		background: #f0ebff;
 
-    /* ICON */
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
 
-    .icon-container {
-        width: 48px;
-        height: 48px;
+	.plan-item .material-symbols-outlined {
+		font-size: 28px;
+		color: #6349c0;
+	}
 
-        min-width: 48px;
-        min-height: 48px;
+	.material-symbols-outlined {
+		color: #6349c0;
+		font-size: 27px;
 
-        border-radius: 12px;
+		font-variation-settings:
+			'FILL' 0,
+			'wght' 400,
+			'GRAD' 0,
+			'opsz' 24;
+	}
 
-        background: #F0EBFF;
+	/* INCOME / SAVING / AVAILABLE */
 
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+	.plan-item {
+		display: flex;
+		align-items: center;
 
-    .plan-item .material-symbols-outlined {
-    font-size: 28px;
-    color: #6349C0;
-    }
+		gap: 14px;
 
-    .material-symbols-outlined {
-        color: #6349C0;
-        font-size: 27px;
+		padding-left: 35px;
 
-        font-variation-settings:
-            'FILL' 0,
-            'wght' 400,
-            'GRAD' 0,
-            'opsz' 24;
-    }
+		border-left: 1px solid #e3dff2;
 
+		min-width: 150px;
+	}
 
-    /* INCOME / SAVING / AVAILABLE */
+	.plan-item span {
+		display: block;
 
-    .plan-item {
-        display: flex;
-        align-items: center;
+		color: #8a91a5;
 
-        gap: 14px;
+		font-size: 14px;
 
-        padding-left: 35px;
+		margin-bottom: 5px;
+	}
 
-        border-left: 1px solid #E3DFF2;
+	.plan-item strong {
+		display: block;
 
-        min-width: 150px;
-    }
+		font-size: 21px;
 
-    
-    .plan-item span {
-        display: block;
+		color: #17174a;
+	}
 
-        color: #8A91A5;
+	/* AVAILABLE AMOUNT */
 
-        font-size: 14px;
-
-        margin-bottom: 5px;
-    }
-
-
-    .plan-item strong {
-        display: block;
-
-        font-size: 21px;
-
-        color: #17174A;
-    }
-
-
-    /* AVAILABLE AMOUNT */
-
-    .available strong {
-        color: #6349C0;
-    }
-
+	.available strong {
+		color: #6349c0;
+	}
 </style>

@@ -13,16 +13,19 @@ A sleek, modern expense tracking application built with **Svelte 5**, **SvelteKi
 ## 🖼️ Screenshots
 
 ### Dashboard
+
 ![Dashboard](src/lib/assets/screenshot-dashboard.png)
 
 <br/>
 
 ### Add New Expense
+
 ![Add Expense](src/lib/assets/screenshot-add-expense.png)
 
 <br/>
 
 ### Transaction History
+
 ![History](src/lib/assets/screenshot-history.png)
 
 <br/>
@@ -40,11 +43,14 @@ A sleek, modern expense tracking application built with **Svelte 5**, **SvelteKi
 Follow these steps to set up the project locally.
 
 ### 1. Prerequisites
+
 - [Node.js](https://nodejs.org/) (Latest LTS recommended)
 - A Firebase project from the [Firebase Console](https://console.firebase.google.com/)
 
 ### 2. Installation
+
 Clone the repository and install the dependencies:
+
 ```bash
 git clone https://github.com/jagatha-devendran/ExpenseTracker.git
 cd ExpenseTracker
@@ -52,7 +58,9 @@ npm install
 ```
 
 ### 3. Environment Setup
+
 Create a `.env` file in the root directory and populate it with your Firebase configuration:
+
 ```env
 PUBLIC_FIREBASE_API_KEY=your_api_key
 PUBLIC_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
@@ -63,7 +71,9 @@ PUBLIC_FIREBASE_APP_ID=your_app_id
 ```
 
 ### 4. Firestore Rules
+
 Configure your Firestore security rules to allow access:
+
 ```rules
 rules_version = '2';
 service cloud.firestore {
@@ -76,11 +86,15 @@ service cloud.firestore {
 ```
 
 ### 5. Running the App
+
 Start the development server:
+
 ```bash
 npm run dev
 ```
+
 Open [http://localhost:5173](http://localhost:5173) in your browser to see the app.
 
 ## 📄 License
+
 This project is licensed under the [MIT License](LICENSE).

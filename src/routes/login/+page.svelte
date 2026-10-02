@@ -1,146 +1,168 @@
 <script lang="ts">
-  import { handleLogin } from "$lib/utils/server";
+	import { handleLogin } from '$lib/utils/clientApi';
 
-  let email = $state('');
-  let password = $state('');
+	let email = $state('');
+	let password = $state('');
+	let isLoading = $state(false);
+	let errorMessage = $state('');
+
+	async function onSubmit() {
+		if (!email || !password) {
+			errorMessage = 'Please enter both email and password.';
+			return;
+		}
+		errorMessage = '';
+		isLoading = true;
+		try {
+			await handleLogin(email, password);
+		} catch (err: unknown) {
+			const error = err as Error;
+			errorMessage = error?.message || 'Login failed. Please check your credentials.';
+		} finally {
+			isLoading = false;
+		}
+	}
 </script>
 
 <svelte:head>
-  <title>Sign In - ExpenseTracker</title>
+	<title>Sign In - ExpenseTracker</title>
 </svelte:head>
 
 <div class="container">
-  <h1>Sign In</h1>
-  <p class="description">Welcome back! Please enter your details.</p>
+	<h1>Sign In</h1>
+	<p class="description">Welcome back! Please enter your details.</p>
 
-  <!-- Login Form Card -->
-  <div class="card">
-    <div class="input-group">
-      <label for="email">EMAIL</label>
-      <input 
-        id="email" 
-        type="email" 
-        bind:value={email} 
-        placeholder="you@example.com" 
-      />
-    </div>
+	<!-- Login Form Card -->
+	<div class="card">
+		{#if errorMessage}
+			<div class="error-banner">
+				{errorMessage}
+			</div>
+		{/if}
 
-    <div class="input-group">
-      <label for="password">PASSWORD</label>
-      <input 
-        id="password" 
-        type="password" 
-        bind:value={password} 
-        placeholder="••••••••" 
-      />
-    </div>
+		<div class="input-group">
+			<label for="email">EMAIL</label>
+			<input id="email" type="email" bind:value={email} placeholder="you@example.com" />
+		</div>
 
-    <button onclick={()=>handleLogin(email, password)} class="submit-btn">
-      Sign In
-    </button>
-  </div>
+		<div class="input-group">
+			<label for="password">PASSWORD</label>
+			<input id="password" type="password" bind:value={password} placeholder="••••••••" />
+		</div>
 
-  <!-- Link to Sign Up page -->
-  <p class="footer-text">
-    Don't have an account?
-    <a href="/signup" class="link">Sign Up</a>
-  </p>
+		<button onclick={onSubmit} class="submit-btn" disabled={isLoading}>
+			{isLoading ? 'Signing In...' : 'Sign In'}
+		</button>
+	</div>
+
+	<!-- Link to Sign Up page -->
+	<p class="footer-text">
+		Don't have an account?
+		<a href="/signup" class="link">Sign Up</a>
+	</p>
 </div>
 
-
 <style>
+	.container {
+		max-width: 440px;
+		margin: 40px auto;
+	}
 
+	h1 {
+		font-size: 36px;
+		font-weight: 800;
+		color: #6349c0;
+		margin-bottom: 8px;
+	}
 
-  .container {
-    max-width: 440px;
-    margin: 40px auto;
-  }
+	.description {
+		font-size: 16px;
+		color: #30628c;
+		opacity: 0.7;
+		margin-bottom: 28px;
+	}
 
-  h1 {
-    font-size: 36px;
-    font-weight: 800;
-    color: #6349C0;
-    margin-bottom: 8px;
-  }
+	.error-banner {
+		background-color: #ffeef0;
+		color: #e03137;
+		border: 1px solid #ffd1d5;
+		padding: 10px 14px;
+		border-radius: 8px;
+		font-size: 14px;
+		margin-bottom: 16px;
+	}
 
-  .description {
-    font-size: 16px;
-    color: #30628C;
-    opacity: 0.7;
-    margin-bottom: 28px;
-  }
+	.card {
+		background-color: white;
+		padding: 28px;
+		border-radius: 16px;
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+	}
 
-  .card {
-    background-color: white;
-    padding: 28px;
-    border-radius: 16px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
-  }
+	.input-group {
+		margin-bottom: 20px;
+	}
 
-  .input-group {
-    margin-bottom: 20px;
-  }
+	label {
+		display: block;
+		font-size: 13px;
+		font-weight: 700;
+		color: #6349c0;
+		margin-bottom: 8px;
+	}
 
-  label {
-    display: block;
-    font-size: 13px;
-    font-weight: 700;
-    color: #6349C0;
-    margin-bottom: 8px;
-  }
+	input {
+		width: 100%;
+		box-sizing: border-box;
+		padding: 14px 16px;
+		font-size: 15px;
+		border-radius: 10px;
+		border: 1px solid #e2e8f0;
+		background-color: #f1f4f9;
+		outline: none;
+		color: #181c20;
+		font-family: inherit;
+	}
 
-  input {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 14px 16px;
-    font-size: 15px;
-    border-radius: 10px;
-    border: 1px solid #E2E8F0;
-    background-color: #F1F4F9;
-    outline: none;
-    color: #181C20;
-    font-family: inherit;
-  }
+	input:focus {
+		border-color: #6349c0;
+		background-color: white;
+	}
 
-  input:focus {
-    border-color: #6349C0;
-    background-color: white;
-  }
+	.submit-btn {
+		width: 100%;
+		background-color: #6349c0;
+		color: white;
+		border: none;
+		padding: 16px;
+		border-radius: 12px;
+		font-size: 16px;
+		font-weight: 800;
+		cursor: pointer;
+		margin-top: 10px;
+		font-family: inherit;
+		transition: background-color 0.2s;
+	}
 
-  .submit-btn {
-    width: 100%;
-    background-color: #6349C0;
-    color: white;
-    border: none;
-    padding: 16px;
-    border-radius: 12px;
-    font-size: 16px;
-    font-weight: 800;
-    cursor: pointer;
-    margin-top: 10px;
-    font-family: inherit;
-    transition: background-color 0.2s;
-  }
+	.submit-btn:hover {
+		background-color: #553bb3;
+	}
 
-  .submit-btn:hover {
-    background-color: #553bb3;
-  }
+	.footer-text {
+		text-align: center;
+		color: #797584;
+		font-size: 14px;
+		margin-top: 24px;
+	}
 
-  .footer-text {
-    text-align: center;
-    color: #797584;
-    font-size: 14px;
-    margin-top: 24px;
-  }
+	.link {
+		color: #6349c0;
+		font-weight: 700;
+		text-decoration: none;
+		margin-left: 4px;
+	}
 
-  .link {
-    color: #6349C0;
-    font-weight: 700;
-    text-decoration: none;
-    margin-left: 4px;
-  }
-
-  .link:hover {
-    text-decoration: underline;
-  }
+	.link:hover {
+		text-decoration: underline;
+	}
 </style>

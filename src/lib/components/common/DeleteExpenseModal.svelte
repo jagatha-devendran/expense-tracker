@@ -1,210 +1,171 @@
 <script lang="ts">
-    import type { Expense } from "$lib/models/Expense";
+	import type { Expense } from '$lib/types/expense';
 
-    interface Props {
-        expense: Expense | any;
-        onCancel: () => void;
-        onConfirm: () => void;
-    }
+	interface Props {
+		expense: Expense | null;
+		onCancel: () => void;
+		onConfirm: () => void;
+	}
 
-    let {
-        expense,
-        onCancel,
-        onConfirm
-    }: Props = $props();
+	let { expense, onCancel, onConfirm }: Props = $props();
 
-    function handleKeydown(event: KeyboardEvent) {
-        if (event.key === 'Escape') {
-            onCancel();
-        }
-    }
+	function handleKeydown(event: KeyboardEvent) {
+		if (event.key === 'Escape') {
+			onCancel();
+		}
+	}
 </script>
 
 <svelte:window onkeydown={handleKeydown} />
 
 <div
-    class="modal-overlay"
-    onclick={onCancel}
-    onkeydown={(e) => e.key === 'Escape' && onCancel()}
-    role="presentation"
+	class="modal-overlay"
+	onclick={onCancel}
+	onkeydown={(e) => e.key === 'Escape' && onCancel()}
+	role="presentation"
 >
-    <!-- svelte-ignore a11y_click_events_have_key_events -->
-    <div
-        class="delete-modal"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="delete-dialog-title"
-        tabindex="-1"
-        onclick={(event) => event.stopPropagation()}
-    >
-        <div class="delete-icon">
-            <span class="material-symbols-outlined">
-                delete
-            </span>
-        </div>
+	<!-- svelte-ignore a11y_click_events_have_key_events -->
+	<div
+		class="delete-modal"
+		role="dialog"
+		aria-modal="true"
+		aria-labelledby="delete-dialog-title"
+		tabindex="-1"
+		onclick={(event) => event.stopPropagation()}
+	>
+		<div class="delete-icon">
+			<span class="material-symbols-outlined"> delete </span>
+		</div>
 
-        <button
-            class="close-button"
-            onclick={onCancel}
-            type="button"
-            aria-label="Close dialog"
-        >
-            <span class="material-symbols-outlined">
-                close
-            </span>
-        </button>
+		<button class="close-button" onclick={onCancel} type="button" aria-label="Close dialog">
+			<span class="material-symbols-outlined"> close </span>
+		</button>
 
-        <h2 id="delete-dialog-title">Delete expense?</h2>
+		<h2 id="delete-dialog-title">Delete expense?</h2>
 
-        <p>
-            Are you sure you want to delete this expense?
-            <br />
-            This action cannot be undone.
-        </p>
+		<p>
+			Are you sure you want to delete {expense?.name ? `"${expense.name}"` : 'this expense'}?
+			<br />
+			This action cannot be undone.
+		</p>
 
-        <div class="modal-actions">
-            <button
-                class="cancel-button"
-                onclick={onCancel}
-                type="button"
-            >
-                Cancel
-            </button>
+		<div class="modal-actions">
+			<button class="cancel-button" onclick={onCancel} type="button"> Cancel </button>
 
-            <button
-                class="confirm-delete-button"
-                onclick={onConfirm}
-                type="button"
-            >
-                Delete
-            </button>
-        </div>
-    </div>
+			<button class="confirm-delete-button" onclick={onConfirm} type="button"> Delete </button>
+		</div>
+	</div>
 </div>
 
-
 <style>
+	.modal-overlay {
+		position: fixed;
+		inset: 0;
 
-    .modal-overlay {
-        position: fixed;
-        inset: 0;
+		background: rgba(40, 35, 70, 0.18);
 
-        background: rgba(40, 35, 70, 0.18);
+		display: flex;
+		align-items: center;
+		justify-content: center;
 
-        display: flex;
-        align-items: center;
-        justify-content: center;
+		z-index: 1000;
+	}
 
-        z-index: 1000;
-    }
+	.delete-modal {
+		position: relative;
 
+		width: 390px;
 
-    .delete-modal {
-        position: relative;
+		background: white;
+		border-radius: 16px;
 
-        width: 390px;
+		padding: 28px;
 
-        background: white;
-        border-radius: 16px;
+		box-shadow: 0 15px 45px rgba(50, 40, 100, 0.18);
+	}
 
-        padding: 28px;
+	.delete-icon {
+		width: 50px;
+		height: 50px;
 
-        box-shadow: 0 15px 45px rgba(50, 40, 100, 0.18);
-    }
+		border-radius: 13px;
 
+		background: #fff0f2;
 
-    .delete-icon {
-        width: 50px;
-        height: 50px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 
-        border-radius: 13px;
+		margin-bottom: 15px;
+	}
 
-        background: #fff0f2;
+	.delete-icon .material-symbols-outlined {
+		color: #f05c6c;
+		font-size: 27px;
+	}
 
-        display: flex;
-        align-items: center;
-        justify-content: center;
+	.close-button {
+		position: absolute;
 
-        margin-bottom: 15px;
-    }
+		right: 20px;
+		top: 20px;
 
+		border: none;
+		background: transparent;
 
-    .delete-icon .material-symbols-outlined {
-        color: #f05c6c;
-        font-size: 27px;
-    }
+		cursor: pointer;
+	}
 
+	.close-button .material-symbols-outlined {
+		color: #8c96b5;
+		font-size: 23px;
+	}
 
-    .close-button {
-        position: absolute;
+	.delete-modal h2 {
+		color: #17174a;
+		font-size: 21px;
 
-        right: 20px;
-        top: 20px;
+		margin: 0 0 12px;
+	}
 
-        border: none;
-        background: transparent;
+	.delete-modal p {
+		color: #8a91ad;
+		font-size: 14px;
+		line-height: 1.7;
 
-        cursor: pointer;
-    }
+		margin: 0 0 25px;
+	}
 
+	.modal-actions {
+		display: flex;
+		justify-content: flex-end;
+		gap: 14px;
+	}
 
-    .close-button .material-symbols-outlined {
-        color: #8c96b5;
-        font-size: 23px;
-    }
+	.cancel-button,
+	.confirm-delete-button {
+		height: 45px;
+		padding: 0 32px;
 
+		border-radius: 9px;
 
-    .delete-modal h2 {
-        color: #17174a;
-        font-size: 21px;
+		font-size: 14px;
+		font-weight: 600;
 
-        margin: 0 0 12px;
-    }
+		cursor: pointer;
+	}
 
+	.cancel-button {
+		background: white;
+		color: #6349c0;
 
-    .delete-modal p {
-        color: #8a91ad;
-        font-size: 14px;
-        line-height: 1.7;
+		border: 1px solid #cfc6f5;
+	}
 
-        margin: 0 0 25px;
-    }
+	.confirm-delete-button {
+		background: #f05c6c;
+		color: white;
 
-
-    .modal-actions {
-        display: flex;
-        justify-content: flex-end;
-        gap: 14px;
-    }
-
-
-    .cancel-button,
-    .confirm-delete-button {
-        height: 45px;
-        padding: 0 32px;
-
-        border-radius: 9px;
-
-        font-size: 14px;
-        font-weight: 600;
-
-        cursor: pointer;
-    }
-
-
-    .cancel-button {
-        background: white;
-        color: #6349c0;
-
-        border: 1px solid #cfc6f5;
-    }
-
-
-    .confirm-delete-button {
-        background: #f05c6c;
-        color: white;
-
-        border: none;
-    }
-
+		border: none;
+	}
 </style>

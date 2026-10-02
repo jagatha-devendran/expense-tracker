@@ -16,3 +16,4 @@ export { default as SettingsCard } from './cards/SettingsCard.svelte';
 // Common components
 export { default as DateHeader } from './common/DateHeader.svelte';
 export { default as DeleteExpenseModal } from './common/DeleteExpenseModal.svelte';
+export { default as EditExpense } from './common/EditExpense.svelte';

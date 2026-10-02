@@ -25,10 +25,9 @@
 	{@render children()}
 </main>
 
-
 <style>
 	:global(body) {
-		background-color: #F7F9FE;
+		background-color: #f7f9fe;
 		font-family: 'Plus Jakarta Sans', sans-serif;
 		margin: 0;
 		padding: 0;
@@ -41,13 +40,13 @@
 		margin-right: 20px;
 		/* margin-top: 100px; */
 	}
-	.content{
+	.content {
 		height: 100vh;
 		width: 100vw;
 		display: flex;
 		flex-direction: row;
-		gap: 20px;    
-  }
+		gap: 20px;
+	}
 	main.auth-layout {
 		padding-bottom: 40px;
 	}
