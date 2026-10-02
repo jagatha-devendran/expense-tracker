@@ -5,36 +5,34 @@
 	import { expenses } from '$lib/store';
 	import { getDetails, getHomeData } from '$lib/utils/clientApi';
 	import { getThisMonthSpending } from '$lib/services/expenses';
-	
 
 	let showWelcome = $state(false);
 	let savingGoal = $state(0);
-	let income = $state(0)
-	let incomeSpent : number = $state(0)
-	let balance = $state(0)
-	let available = $state(0)
-	let remaining = $state(0)
-	let percent = $state(0)
+	let income = $state(0);
+	let incomeSpent: number = $state(0);
+	let balance = $state(0);
+	let available = $state(0);
+	let remaining = $state(0);
+	let percent = $state(0);
 
-	function calculateBalance(){
-		balance = income - incomeSpent
-		available = income - savingGoal
-		remaining = available - incomeSpent
+	function calculateBalance() {
+		balance = income - incomeSpent;
+		available = income - savingGoal;
+		remaining = available - incomeSpent;
 
-		percent = Math.round((incomeSpent/available)*100)
+		percent = Math.round((incomeSpent / available) * 100);
 	}
-
 
 	onMount(async () => {
 		try {
 			await getHomeData();
-			incomeSpent = await getThisMonthSpending() ?? 0;
+			incomeSpent = (await getThisMonthSpending()) ?? 0;
 			const details = await getDetails();
 			if (details) {
 				savingGoal = details.savings ?? 0;
 				income = details.income ?? 0;
 			}
-			calculateBalance()
+			calculateBalance();
 		} catch (error) {
 			console.error('Failed to load dashboard data:', error);
 		}
@@ -51,12 +49,16 @@
 </script>
 
 <main>
-	<BalanceCard balance={balance.toLocaleString()}/>
+	<BalanceCard balance={balance.toLocaleString()} />
 
 	<div class="section-spacer"></div>
 
 	<div class="stats-grid">
-		<MonthlyBudgetCard spent_amount={incomeSpent} percent_used={percent} remaining_amt={remaining}/>
+		<MonthlyBudgetCard
+			spent_amount={incomeSpent}
+			percent_used={percent}
+			remaining_amt={remaining}
+		/>
 		<SavingCard save_amt={savingGoal} />
 	</div>
 

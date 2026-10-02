@@ -12,29 +12,28 @@
 	let showDeleteModal = $state(false);
 	let showEditModal = $state(false);
 	let selectedExpense = $state<Expense | null>(null);
-	
+
 	// let valueDefaults: {
-    //         name?: string;
-    //         price?: number;
-    //         description?: string;
-    //         category?: string;
-    //         date: string | undefined;
-    //     };
-	
+	//         name?: string;
+	//         price?: number;
+	//         description?: string;
+	//         category?: string;
+	//         date: string | undefined;
+	//     };
+
 	let values = $state({
-    	name: '',
-    	price: 0,
-    	description: '',
-    	category: '',
-    	date: ''
+		name: '',
+		price: 0,
+		description: '',
+		category: '',
+		date: ''
 	});
-		
 
 	onMount(async () => {
-		getAll()
+		getAll();
 	});
 
-	async function getAll(){
+	async function getAll() {
 		try {
 			await getAllExpense();
 		} catch (error) {
@@ -59,19 +58,18 @@
 		} catch (err: unknown) {
 			const error = err as Error;
 			errorMessage = error?.message || 'Failed to add expense.';
-		} 
+		}
 	}
-	async function onSubmit(editedExpense:Expense){
-		console.log(editedExpense)
+	async function onSubmit(editedExpense: Expense) {
+		console.log(editedExpense);
 		try {
-		await updateData(editedExpense.id, editedExpense)
-        await getAll(); // refresh AFTER update finishes
+			await updateData(editedExpense.id, editedExpense);
+			await getAll(); // refresh AFTER update finishes
 
-        closeEditModal();
-    } catch (error) {
-        console.error('Failed to update expense:', error);
-    }
-
+			closeEditModal();
+		} catch (error) {
+			console.error('Failed to update expense:', error);
+		}
 	}
 
 	function closeDeleteModal() {
@@ -83,15 +81,15 @@
 		selectedExpense = null;
 	}
 
-	async function deleteExpense(expense:Expense|null) {
+	async function deleteExpense(expense: Expense | null) {
 		if (!selectedExpense?.id) return;
-		// Call delete API when backend endpoint is ready		
+		// Call delete API when backend endpoint is ready
 		try {
-			await deleteById(expense?.id??0)
-        	await getAll(); // refresh UI
-        	closeDeleteModal();
+			await deleteById(expense?.id ?? 0);
+			await getAll(); // refresh UI
+			closeDeleteModal();
 		} catch (error) {
-        console.error(error);
+			console.error(error);
 		}
 	}
 </script>
@@ -133,17 +131,12 @@
 	<DeleteExpenseModal
 		expense={selectedExpense}
 		onCancel={closeDeleteModal}
-		onConfirm={()=>deleteExpense(selectedExpense)}
+		onConfirm={() => deleteExpense(selectedExpense)}
 	/>
 {/if}
 
 {#if showEditModal}
-	<EditExpense
-	expense={selectedExpense}
-	onCancel={closeEditModal}
-	onSave={onSubmit}
-		
-	/>
+	<EditExpense expense={selectedExpense} onCancel={closeEditModal} onSave={onSubmit} />
 {/if}
 
 <style>

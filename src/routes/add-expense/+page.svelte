@@ -2,39 +2,39 @@
 	import { addData } from '$lib/utils/clientApi';
 
 	const CATEGORIES = [
-    { name: 'Grocery', label: 'Grocery', icon: 'shopping_cart' },
-    { name: 'Restaurant', label: 'Restaurant', icon: 'restaurant' },
-    { name: 'Petrol', label: 'Petrol', icon: 'local_gas_station' },
-    { name: 'Health', label: 'Health', icon: 'medical_services' },
-    { name: 'Iyarkai Foods', label: 'Iyarkai', icon: 'eco' },
-    { name: 'Bus Travel', label: 'Bus Travel', icon: 'directions_bus' },
-    { name: 'Gifts', label: 'Gifts', icon: 'featured_seasonal_and_gifts' },
-    { name: 'Dress Purchase', label: 'Dress', icon: 'checkroom' },
-    { name: 'Education', label: 'Education', icon: 'school' },
-    { name: 'Entertainment', label: 'Entertainment', icon: 'movie' },
-    { name: 'Bills', label: 'Bills', icon: 'receipt_long' },
-    { name: 'Other', label: 'Other', icon: 'more_horiz' }
-];
+		{ name: 'Grocery', label: 'Grocery', icon: 'shopping_cart' },
+		{ name: 'Restaurant', label: 'Restaurant', icon: 'restaurant' },
+		{ name: 'Petrol', label: 'Petrol', icon: 'local_gas_station' },
+		{ name: 'Health', label: 'Health', icon: 'medical_services' },
+		{ name: 'Iyarkai Foods', label: 'Iyarkai', icon: 'eco' },
+		{ name: 'Bus Travel', label: 'Bus Travel', icon: 'directions_bus' },
+		{ name: 'Gifts', label: 'Gifts', icon: 'featured_seasonal_and_gifts' },
+		{ name: 'Dress Purchase', label: 'Dress', icon: 'checkroom' },
+		{ name: 'Education', label: 'Education', icon: 'school' },
+		{ name: 'Entertainment', label: 'Entertainment', icon: 'movie' },
+		{ name: 'Bills', label: 'Bills', icon: 'receipt_long' },
+		{ name: 'Other', label: 'Other', icon: 'more_horiz' }
+	];
 
 	// interface Props {
-    //     valueDefaults?: {
-    //         name: string;
-    //         price: number | '';
-    //         description: string;
-    //         category: string;
-    //         date: string;
-    //     };
-    // }
+	//     valueDefaults?: {
+	//         name: string;
+	//         price: number | '';
+	//         description: string;
+	//         category: string;
+	//         date: string;
+	//     };
+	// }
 
-    // let {
-        let valueDefaults = {
-            name: '',
-            price: '',
-            description: '',
-            category: '',
-            date: new Date().toISOString().split('T')[0]
-        }
-    // }: Props = $props();
+	// let {
+	let valueDefaults = {
+		name: '',
+		price: '',
+		description: '',
+		category: '',
+		date: new Date().toISOString().split('T')[0]
+	};
+	// }: Props = $props();
 
 	let values = $state({ ...valueDefaults });
 	let showSuccess = $state(false);

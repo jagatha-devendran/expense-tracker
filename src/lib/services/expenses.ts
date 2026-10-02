@@ -15,7 +15,7 @@ export async function getAllExpenses() {
 	});
 	if (Array.isArray(data)) {
 		apiData.set(data);
-		console.log(data)
+		console.log(data);
 	}
 	return data;
 }
@@ -36,16 +36,15 @@ export async function getHomeData() {
 }
 
 export async function getThisMonthSpending() {
-	try{
-		const data = await apiFetch<number>('/getSpending',{
+	try {
+		const data = await apiFetch<number>('/getSpending', {
 			method: 'GET'
-		})
-		console.log(data)
-		return data
-	} catch(error){
-		console.error("No data: ", error)
+		});
+		console.log(data);
+		return data;
+	} catch (error) {
+		console.error('No data: ', error);
 	}
-	
 }
 
 export interface UserDetails {
@@ -58,11 +57,10 @@ export async function getDetails() {
 		const userDetails = await apiFetch<UserDetails>('/getDetails', {
 			method: 'GET'
 		});
-		console.log(userDetails)
-		console.log(userDetails.income)
-		console.log(userDetails.savings)
-		return userDetails
-		
+		console.log(userDetails);
+		console.log(userDetails.income);
+		console.log(userDetails.savings);
+		return userDetails;
 	} catch (error) {
 		console.error('Failed to load user details:', error);
 		return null;
@@ -101,15 +99,15 @@ export async function addData(values: AddDataParams) {
 }
 
 export async function updateData(id: number | undefined, data: Expense) {
-    return await apiFetch(`/update/${id}`, {
-        method: 'PUT',
-        data
-    });
+	return await apiFetch(`/update/${id}`, {
+		method: 'PUT',
+		data
+	});
 }
 
-export async function deleteById(id:number) {
+export async function deleteById(id: number) {
 	const data = await apiFetch(`/deleteExpense?id=${id}`, {
-		method: 'DELETE',
+		method: 'DELETE'
 	});
-	console.log(data)
+	console.log(data);
 }

@@ -4,7 +4,6 @@
 	import { onMount } from 'svelte';
 
 	let email = $state(typeof window !== 'undefined' ? localStorage.getItem('email') || '' : '');
-	
 
 	onMount(() => {
 		email = localStorage.getItem('email') || '';

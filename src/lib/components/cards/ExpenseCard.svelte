@@ -54,7 +54,7 @@
 		<div class="category-icon">
 			<span class="material-symbols-outlined">
 				<!-- {getCategoryIcon(expense.category)} -->
-				 {CATEGORY_ICONS[expense.category ?? 'Other'] ?? 'receipt_long'}
+				{CATEGORY_ICONS[expense.category ?? 'Other'] ?? 'receipt_long'}
 			</span>
 		</div>
 

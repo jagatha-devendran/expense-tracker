@@ -11,11 +11,11 @@
 	let feedbackMessage = $state('');
 	let feedbackType = $state<'success' | 'error' | ''>('');
 
-	onMount(async ()=>{
-		const userDetails = await getDetails()
-		income = userDetails?.income  ?? 0
-		saving = userDetails?.savings  ?? 0
-	})
+	onMount(async () => {
+		const userDetails = await getDetails();
+		income = userDetails?.income ?? 0;
+		saving = userDetails?.savings ?? 0;
+	});
 
 	function onIncomeChange(value: string) {
 		income = Number(value);

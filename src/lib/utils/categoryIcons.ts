@@ -1,34 +1,33 @@
 export const CATEGORY_ICONS: Record<string, string> = {
+	Grocery: 'shopping_cart',
 
-    'Grocery': 'shopping_cart',
+	Restaurant: 'restaurant',
 
-    'Restaurant': 'restaurant',
+	Food: 'restaurant',
 
-    'Food': 'restaurant',
+	'Hotel Food': 'restaurant',
 
-    'Hotel Food': 'restaurant',
+	Petrol: 'local_gas_station',
 
-    'Petrol': 'local_gas_station',
+	Health: 'medical_services',
 
-    'Health': 'medical_services',
+	'Iyarkai Foods': 'eco',
 
-    'Iyarkai Foods': 'eco',
+	'Bus Travel': 'directions_bus',
 
-    'Bus Travel': 'directions_bus',
+	'Train Travel': 'train',
 
-    'Train Travel': 'train',
+	Gifts: 'featured_seasonal_and_gifts',
 
-    'Gifts': 'featured_seasonal_and_gifts',
+	'Dress Purchase': 'checkroom',
 
-    'Dress Purchase': 'checkroom',
+	Education: 'school',
 
-    'Education': 'school',
+	Entertainment: 'movie',
 
-    'Entertainment': 'movie',
+	Bills: 'receipt_long',
 
-    'Bills': 'receipt_long',
+	Other: 'more_horiz',
 
-    'Other': 'more_horiz',
-
-    'Shopping': 'shopping_bag'
+	Shopping: 'shopping_bag'
 };

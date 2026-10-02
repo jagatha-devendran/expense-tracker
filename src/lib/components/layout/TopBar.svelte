@@ -51,17 +51,17 @@
 		</button>
 
 		{#if showProfile}
-		<ProfileDropdown
-		name={username}
-		onSettings={() => {
-			showProfile = false;
-			goto('/settings');
-		}}
-		onLogout={async () => {
-			showProfile = false;
-			await handleLogout();
-		}}
-	/>
+			<ProfileDropdown
+				name={username}
+				onSettings={() => {
+					showProfile = false;
+					goto('/settings');
+				}}
+				onLogout={async () => {
+					showProfile = false;
+					await handleLogout();
+				}}
+			/>
 		{/if}
 	</div>
 </header>
