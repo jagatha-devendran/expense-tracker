@@ -4,7 +4,7 @@
 	import type { Expense } from '$lib/types/expense';
 	import { DateHeader, ExpenseCard, DeleteExpenseModal } from '$lib/components';
 	import { getAllExpense } from '$lib/utils/clientApi';
-	import { EditExpense } from '$lib/components'; //src/lib/components/common/EditExpense.svelte';
+	import { EditExpense } from '$lib/components'; 
 	import { addData, deleteById, updateData } from '$lib/services/expenses';
 	import { goto } from '$app/navigation';
 	import { get } from 'svelte/store';
