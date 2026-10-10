@@ -15,7 +15,7 @@
 	<div class="left-section">
 		<div class="img-container">
 			<!-- Ensure icon path is correct. If it's a relative path from the assets folder, it might need adjustment -->
-			<img class="expense-icon" src={icon} alt={spent_for} />
+			<span class="material-symbols-outlined">{icon}</span>
 		</div>
 
 		<div class="text-container">
@@ -55,11 +55,9 @@
 		justify-content: center;
 		align-items: center;
 	}
-
-	.expense-icon {
-		width: 24px;
-		height: 24px;
-		object-fit: contain;
+	.material-symbols-outlined {
+		color: #6349c0;
+		font-size: 29px;
 	}
 
 	.text-container {

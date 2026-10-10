@@ -5,7 +5,9 @@
 	import { expenses } from '$lib/store';
 	import { getDetails, getHomeData } from '$lib/utils/clientApi';
 	import { getThisMonthSpending } from '$lib/services/expenses';
+	import { CATEGORY_ICONS } from '$lib/utils/categoryIcons';
 
+	
 	let showWelcome = $state(false);
 	let savingGoal = $state(0);
 	let income = $state(0);
@@ -73,7 +75,7 @@
 		<div class="expense-list">
 			{#each $expenses as expense, i (expense.id ?? i)}
 				<RecentExpenseCard
-					icon={petrol_bunk}
+					icon={CATEGORY_ICONS[expense.category ?? 'Other'] ?? 'receipt_long'}
 					spent_for={expense.name}
 					day_date="Today"
 					place={expense.description || 'No description'}
