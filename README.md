@@ -73,9 +73,9 @@ _Key architectural patterns and engineering decisions relevant for technical rec
 | :---------------------------------------------------: | :-----------------------------------------------: |
 | ![Dashboard](src/lib/assets/screenshot-dashboard.png) | ![History](src/lib/assets/screenshot-history.png) |
 
-|                     Add Expense Form                      |               Mobile & Desktop Layout                |
-| :-------------------------------------------------------: | :--------------------------------------------------: |
-| ![Add Expense](src/lib/assets/screenshot-add-expense.png) | ![Brand Preview](src/lib/assets/expense-tracker.png) |
+|                     Add Expense Form                      | 
+| :-------------------------------------------------------: | 
+| ![Add Expense](src/lib/assets/screenshot-add-expense.png) | 
 
 ---
 
