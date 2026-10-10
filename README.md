@@ -123,21 +123,49 @@ The backend is built with **Spring Boot** and **MySQL**, providing secure REST e
 
 ## 🖼️ Screenshots
 
-| Home / Dashboard | Transaction History |
-| :---: | :---: |
-| ![Home](frontend/src/lib/assets/Home.png) | ![History](frontend/src/lib/assets/History.png) |
+> 💡 *Click any screenshot to open and zoom in full 1080p resolution.*
 
-| Edit Expense Modal | Delete Confirmation |
-| :---: | :---: |
-| ![Edit](frontend/src/lib/assets/Edit.png) | ![Delete](frontend/src/lib/assets/Delete.png) |
+### 📊 Dashboard & Financial Overview
+<a href="frontend/src/lib/assets/Home.png" target="_blank">
+  <img src="frontend/src/lib/assets/Home.png" alt="Home Dashboard" width="100%" />
+</a>
 
-| Sign In | Sign Up |
-| :---: | :---: |
-| ![Sign In](frontend/src/lib/assets/Sigin.png) | ![Sign Up](frontend/src/lib/assets/Signup.png) |
+### 📜 Transaction History & Logs
+<a href="frontend/src/lib/assets/History.png" target="_blank">
+  <img src="frontend/src/lib/assets/History.png" alt="Transaction History" width="100%" />
+</a>
 
-| Settings | Logout |
-| :---: | :---: |
-| ![Settings](frontend/src/lib/assets/Settings-Page.png) | ![Logout](frontend/src/lib/assets/Logout.png) |
+### ✏️ Edit Expense Modal
+<a href="frontend/src/lib/assets/Edit.png" target="_blank">
+  <img src="frontend/src/lib/assets/Edit.png" alt="Edit Expense Modal" width="100%" />
+</a>
+
+### 🗑️ Delete Confirmation
+<a href="frontend/src/lib/assets/Delete.png" target="_blank">
+  <img src="frontend/src/lib/assets/Delete.png" alt="Delete Expense Confirmation" width="100%" />
+</a>
+
+### 🔐 Authentication (Sign In & Sign Up)
+<a href="frontend/src/lib/assets/Sigin.png" target="_blank">
+  <img src="frontend/src/lib/assets/Sigin.png" alt="Sign In Page" width="100%" />
+</a>
+
+<br>
+
+<a href="frontend/src/lib/assets/Signup.png" target="_blank">
+  <img src="frontend/src/lib/assets/Signup.png" alt="Sign Up Page" width="100%" />
+</a>
+
+### ⚙️ User Settings & Session Management
+<a href="frontend/src/lib/assets/Settings-Page.png" target="_blank">
+  <img src="frontend/src/lib/assets/Settings-Page.png" alt="Settings Page" width="100%" />
+</a>
+
+<br>
+
+<a href="frontend/src/lib/assets/Logout.png" target="_blank">
+  <img src="frontend/src/lib/assets/Logout.png" alt="Logout Confirmation" width="100%" />
+</a>
 
 ---
 
